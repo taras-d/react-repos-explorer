@@ -1,0 +1,32 @@
+{
+  "name": "react-repos-explorer",
+  "version": "0.0.1",
+  "description": "GitHub Repositories Explorer",
+  "scripts": {
+    "bundle": "webpack",
+    "bundle:watch": "webpack -w",
+    "server": "webpack-dev-server --open"
+  },
+  "author": "taras-d",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.5.0",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
