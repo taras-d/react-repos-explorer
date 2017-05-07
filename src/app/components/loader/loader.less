@@ -1,0 +1,21 @@
+.loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    .loader-indicator {
+        width: 100%;
+        height: 100%;
+        border: 4px solid #ddd;
+        border-top-color: #337ab7;
+        border-radius: 100%;
+        animation: loader-spinner 1s linear infinite;
+    }
+}
+
+@keyframes loader-spinner {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+}

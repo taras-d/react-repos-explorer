@@ -2,6 +2,7 @@ import React from 'react';
 
 import SearchPanel from '../../components/search-panel';
 import ReposList from '../../components/repos-list';
+import Loader from '../../components/loader';
 
 class Search extends React.Component {
 
@@ -34,6 +35,7 @@ class Search extends React.Component {
                 <div className="route-header">Repos search</div>
                 <SearchPanel query={query} onQueryChange={this.onQueryChange} onSearch={this.onSearch}/>
                 <ReposList repos={repos}/>
+                <Loader/>
             </div>
         );
 
