@@ -3,6 +3,7 @@ import React from 'react';
 import SearchPanel from '../../components/search-panel';
 import ReposList from '../../components/repos-list';
 import Loader from '../../components/loader';
+import Pager from '../../components/pager';
 
 class Search extends React.Component {
 
@@ -36,6 +37,7 @@ class Search extends React.Component {
                 <SearchPanel query={query} onQueryChange={this.onQueryChange} onSearch={this.onSearch}/>
                 <ReposList repos={repos}/>
                 <Loader/>
+                <Pager/>
             </div>
         );
 
