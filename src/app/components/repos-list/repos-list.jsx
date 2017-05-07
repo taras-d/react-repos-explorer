@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ReposList = ({ repos }) => {
 
     let result = repos.map(repo => 
-        <div className="list-group-item repo" key={repo.id}>
+        <div className="list-group-item" key={repo.id}>
             <div className="repo-stars">
                 <span className="repo-stars-number">{repo.stargazers_count}</span>
                 <span className="glyphicon glyphicon-star"></span>
@@ -16,7 +16,11 @@ const ReposList = ({ repos }) => {
         </div>
     );
     
-    return (<div className="list-group repos-list">{result}</div>);
+    return (
+        <div className="repos-list">
+            <div className="list-group">{result}</div>
+        </div>
+    );
 
 }
 
