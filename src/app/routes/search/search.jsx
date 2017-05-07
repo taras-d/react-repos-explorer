@@ -4,6 +4,7 @@ import SearchPanel from '../../components/search-panel';
 import ReposList from '../../components/repos-list';
 import Loader from '../../components/loader';
 import Pager from '../../components/pager';
+import Dimmer from '../../components/dimmer';
 
 class Search extends React.Component {
 
@@ -35,7 +36,10 @@ class Search extends React.Component {
             <div>
                 <div className="route-header">Repos search</div>
                 <SearchPanel query={query} onQueryChange={this.onQueryChange} onSearch={this.onSearch}/>
-                <ReposList repos={repos}/>
+                <div className="dimmer-limiter">
+                    <ReposList repos={repos}/>
+                    <Dimmer loader/>
+                </div>
                 <Loader/>
                 <Pager/>
             </div>
