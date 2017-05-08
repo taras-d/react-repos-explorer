@@ -1,14 +1,16 @@
 import React from 'react';
 
-const SearchPanel = ({ query, placeholder, onQueryChange, onSearch }) => {
+const SearchPanel = ({ onSearch }) => {
+
+    let input;
 
     return (
         <div className="search-panel">
             <div className="panel panel-default">
                 <div className="panel-body">
-                    <form onSubmit={e => { e.preventDefault(); onSearch(); }}>
-                        <input type="text" className="form-control" placeholder={placeholder || 'Query'}
-                            value={query} onChange={e => onQueryChange(e.target.value)}/>
+                    <form onSubmit={e => { e.preventDefault(); onSearch(input.value); }}>
+                        <input type="text" className="form-control" placeholder="Query"
+                            ref={i => input = i}/>
                         <button type="submit" className="btn btn-default">Search</button>
                     </form>
                 </div> 

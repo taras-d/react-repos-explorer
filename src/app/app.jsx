@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 
-import Search from './routes/search';
-import Detail from './routes/detail';
+import Search from '../containers/search';
+import Detail from '../containers/detail';
 
 const App = () => {
     return (

@@ -1,0 +1,4 @@
+
+export const SEARCH_REPOS = 'SEARCH_REPOS';
+export const SEARCH_REPOS_OK = 'SEARCH_REPOS_OK';
+export const SEARCH_REPOS_FAIL = 'SEARCH_REPOS_FAIL';
