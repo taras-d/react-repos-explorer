@@ -1,8 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 
-import './app.less';
-
 import Search from './routes/search';
 import Detail from './routes/detail';
 
