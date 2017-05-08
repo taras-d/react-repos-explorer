@@ -6,7 +6,7 @@ export const searchRepos = (query, page) => {
         type: types.SEARCH_REPOS,
         payload: { 
             query, 
-            page, 
+            page,
             loading: true 
         }
     };
@@ -35,10 +35,10 @@ export const searchReposFail = (res) => {
 
 export const searchReposAsync = (query, page) => {
     return dispatch => {
-        dispatch(searchRepos(query, page));
+        dispatch( searchRepos(query, page) );
         return reposService.searchRepos(query, page).then(
-            res => dispatch(searchReposOk(res)),
-            res => dispatch(searchReposFail(res))
+            res => dispatch( searchReposOk(res) ),
+            res => dispatch( searchReposFail(res) )
         );
     }
 }

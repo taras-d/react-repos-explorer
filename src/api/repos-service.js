@@ -15,14 +15,7 @@ class ReposService {
             per_page: perPage 
         });
 
-        return $.get(`${this.rootUrl}/search/repositories?${params}`).done(res => {
-            if (page > 1) {
-                res.prev_page_params = queryString.stringify({ query, page: page - 1 });
-            }
-            if (page < res.total_count / perPage) {
-                res.next_page_params = queryString.stringify({ query, page: page + 1 });
-            }
-        });
+        return $.get(`${this.rootUrl}/search/repositories?${params}`);
     }
 
 }

@@ -1,2 +1,2 @@
-export { default } from './search2';
+export { default } from './search';
 import './search.less';

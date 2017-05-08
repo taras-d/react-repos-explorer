@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import SearchPanel from '../../components/search-panel';
@@ -7,112 +8,70 @@ import Loader from '../../components/loader';
 import Pager from '../../components/pager';
 import Dimmer from '../../components/dimmer';
 
-import { reposService } from '../../services';
+import * as actions from '../../actions/search';
 
 class Search extends React.Component {
 
     constructor(props) {
-
         super(props);
-
-        this.state = {
-            query: '',
-            page: 1,
-            repos: [],
-            totalCount: 0,
-            message: '',
-            loading: false,
-            prevLink: null,
-            nextLink: null
-        };
-
-        this.xhr = '';
-
-        this.onQueryChange = this.onQueryChange.bind(this);
         this.onSearch = this.onSearch.bind(this);
+        this.onPrev = this.onPrev.bind(this);
+        this.onNext = this.onNext.bind(this);
     }
 
     render() {
 
-        let { query, repos, totalCount, loading, prevLink, nextLink, message } = this.state;
+        let { query, page, items, totalCount, loading } = this.props;
 
         return (
             <div className="search">
-                <SearchPanel query={query} onQueryChange={this.onQueryChange} onSearch={this.onSearch}/>
+                <SearchPanel onSearch={this.onSearch} />
                 {totalCount > 0 && <div className="total-count">{totalCount} repo(s)</div>}
                 <div className="dimmer-limiter">
-                    {repos.length > 0 && <ReposList repos={repos}/>}
-                    {message && <div className="message" dangerouslySetInnerHTML={{ __html: message }}></div>}
+                    {items.length > 0 && <ReposList repos={items}/>}
+                    {(items.length === 0 && query && !loading) && <div className="message">Nothing found</div>}
+                    {!query && 
+                        <div className="message">
+                            Please specify search query to explore public repos<br/>For example "react"
+                        </div>
+                    }
                     {loading && <Dimmer loader/>}
                 </div>
-                {repos.length > 0 && <Pager prevLink={prevLink} nextLink={nextLink}/>}
+                {items.length > 0 &&
+                    <Pager prevDisabled={page === 1} nextDisabled={page >= totalCount / 6}
+                        onPrev={this.onPrev} onNext={this.onNext} />
+                }
             </div>
         );
-
     }
 
-    componentDidMount() {
-        this.searchRepos( this.getSearchParams(this.props) );
+    searchRepos(query, page) {
+        let { dispatch } = this.props;
+        dispatch( actions.searchReposAsync(query, page) );
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.cancelSearch();
-        this.searchRepos( this.getSearchParams(nextProps) );
-    }
-
-    componentWillUnmount() {
-        this.cancelSearch();
-    }
-
-    onQueryChange(query) {
-        this.setState({ query });
-    }
-
-    onSearch() {
-        this.props.history.push({ 
-            path: '/', 
-            search: queryString.stringify({ query: this.state.query }) 
-        });
-    }
-
-    searchRepos(queryParams) {
-
-        let { page, query } = queryParams;
-
-        page = +page || 1;
-        query = (query || '').trim();
-
-        if (!query) {
-            this.setState({ loading: false, repos: [], query: '', totalCount: 0,
-                message: 'Please set search query to explore public repos<br>For example "react"' });
-            return;
-        }
-
-        this.setState({ page, query, loading: true });
-
-        this.xhr = reposService.searchRepos(query, page).done(res => {
-            this.setState({ 
-                repos: res.items,
-                totalCount: res.total_count,
-                loading: false,
-                prevLink: res.prev_page_params? `/?${res.prev_page_params}`: null,
-                nextLink: res.next_page_params? `/?${res.next_page_params}`: null,
-                message: res.items.length === 0? 'Nothing found': ''
-            });
-        });
-    }
-
-    cancelSearch() {
-        if (this.xhr) {
-            this.xhr.abort();
-            this.xhr = null;
+    onSearch(query) {
+        let { dispatch } = this.props;
+        if (!query || !query.trim()) {
+            dispatch( actions.searchRepos('', 1) );
+            dispatch( actions.searchReposOk({ items: [] }) );
+        } else {
+            this.searchRepos(query, 1);
         }
     }
 
-    getSearchParams(props) {
-        return queryString.parse(props.location.search);
+    onPrev() {
+        let { query, page } = this.props;
+        this.searchRepos(query, page - 1);
+    }
+
+    onNext() {
+        let { query, page } = this.props;
+        this.searchRepos(query, page + 1);
     }
 
 }
 
-export default Search;
+const mapStateToProps = (state) => state.search;
+
+export default connect(mapStateToProps)(Search);
