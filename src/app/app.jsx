@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
 
 import './app.less';
 
@@ -11,7 +11,9 @@ const App = () => {
         <div className="app">
             <Router>
                 <div>
-                    <div className="app-header">GitHub Repos Explorer</div>
+                    <div className="app-header">
+                        <Link to="/">GitHub Repos Explorer</Link>
+                    </div>
                     <Route path="/" exact component={Search}/>
                     <Route path="/detail/:owner/:repo" component={Detail}/>
                 </div>

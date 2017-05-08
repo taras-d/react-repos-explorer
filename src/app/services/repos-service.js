@@ -9,18 +9,20 @@ class ReposService {
 
     searchRepos(query, page, perPage = 6) {
 
-        // Query cannot be empty
-        if (!query || !query.trim()) {
-            query = 'react';
-        }
-
         let params = queryString.stringify({ 
             q: query, 
-            page, 
+            page: page, 
             per_page: perPage 
         });
 
-        return $.get(`${this.rootUrl}/search/repositories?${params}`);
+        return $.get(`${this.rootUrl}/search/repositories?${params}`).done(res => {
+            if (page > 1) {
+                res.prev_page_params = queryString.stringify({ query, page: page - 1 });
+            }
+            if (page < res.total_count / perPage) {
+                res.next_page_params = queryString.stringify({ query, page: page + 1 });
+            }
+        });
     }
 
 }

@@ -17,11 +17,15 @@ class Search extends React.Component {
 
         this.state = {
             query: '',
-            page: null,
+            page: 1,
             repos: [],
-            initialLoading: true,
-            loading: false
+            message: '',
+            loading: false,
+            prevLink: null,
+            nextLink: null
         };
+
+        this.xhr = '';
 
         this.onQueryChange = this.onQueryChange.bind(this);
         this.onSearch = this.onSearch.bind(this);
@@ -29,24 +33,17 @@ class Search extends React.Component {
 
     render() {
 
-        let { repos, query, page, initialLoading, loading } = this.state;
+        let { query, repos, loading, prevLink, nextLink, message } = this.state;
 
         return (
             <div className="search">
-                {initialLoading?
-                    <Loader/>:
-                    <div>
-                        <SearchPanel query={query} onQueryChange={this.onQueryChange} onSearch={this.onSearch}/>
-                        <div className="dimmer-limiter">
-                            {repos.length > 0? 
-                                <ReposList repos={repos}/>:
-                                <div className="no-repos">No repos found</div>
-                            }
-                            {loading? <Dimmer loader/>: null}
-                        </div>
-                        {repos.length > 0? <Pager/>: null}
-                    </div>
-                }
+                <SearchPanel query={query} onQueryChange={this.onQueryChange} onSearch={this.onSearch}/>
+                <div className="dimmer-limiter">
+                    {repos.length > 0? <ReposList repos={repos}/>: null}
+                    {message? <div className="message" dangerouslySetInnerHTML={{ __html: message }}></div>: null}
+                    {loading? <Dimmer loader/>: null}
+                </div>
+                {repos.length > 0? <Pager prevLink={prevLink} nextLink={nextLink}/>: null}
             </div>
         );
 
@@ -57,8 +54,12 @@ class Search extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ loading: true });
+        this.cancelSearch();
         this.searchRepos( this.getSearchParams(nextProps) );
+    }
+
+    componentWillUnmount() {
+        this.cancelSearch();
     }
 
     onQueryChange(query) {
@@ -66,8 +67,10 @@ class Search extends React.Component {
     }
 
     onSearch() {
-        let query = (this.state.query || '');
-        this.props.history.push({ path: '/', search: `query=${query}` });
+        this.props.history.push({ 
+            path: '/', 
+            search: queryString.stringify({ query: this.state.query }) 
+        });
     }
 
     searchRepos(queryParams) {
@@ -75,17 +78,32 @@ class Search extends React.Component {
         let { page, query } = queryParams;
 
         page = +page || 1;
-        query = query || '';
+        query = (query || '').trim();
 
-        this.setState({ page, query });
+        if (!query) {
+            this.setState({ loading: false, repos: [], query: '',
+                message: 'Please set search query to explore public repos<br>For example "react"' });
+            return;
+        }
 
-        reposService.searchRepos(query, page).done(res => {
+        this.setState({ page, query, loading: true });
+
+        this.xhr = reposService.searchRepos(query, page).done(res => {
             this.setState({ 
-                repos: res.items, 
-                initialLoading: false,
-                loading: false
+                repos: res.items,
+                loading: false,
+                prevLink: res.prev_page_params? `/?${res.prev_page_params}`: null,
+                nextLink: res.next_page_params? `/?${res.next_page_params}`: null,
+                message: res.items.length === 0? 'Nothing found': ''
             });
         });
+    }
+
+    cancelSearch() {
+        if (this.xhr) {
+            this.xhr.abort();
+            this.xhr = null;
+        }
     }
 
     getSearchParams(props) {
