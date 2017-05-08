@@ -79,7 +79,7 @@ class Search extends React.Component {
 
         this.setState({ page, query });
 
-        reposService.searchRepos(page, query).done(res => {
+        reposService.searchRepos(query, page).done(res => {
             this.setState({ 
                 repos: res.items, 
                 initialLoading: false,

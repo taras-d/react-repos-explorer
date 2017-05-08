@@ -1,15 +1,26 @@
 import $ from 'jquery';
+import queryString from 'query-string';
 
 class ReposService {
 
-    searchRepos(page, query) {
+    constructor() {
+        this.rootUrl = 'https://api.github.com';
+    }
+
+    searchRepos(query, page, perPage = 6) {
 
         // Query cannot be empty
         if (!query || !query.trim()) {
             query = 'react';
         }
 
-        return $.get(`https://api.github.com/search/repositories?per_page=5&page=${page}&q=${query}`);
+        let params = queryString.stringify({ 
+            q: query, 
+            page, 
+            per_page: perPage 
+        });
+
+        return $.get(`${this.rootUrl}/search/repositories?${params}`);
     }
 
 }
