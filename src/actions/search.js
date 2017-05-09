@@ -7,7 +7,8 @@ export const searchRepos = (query, page) => {
         payload: { 
             query, 
             page,
-            loading: true 
+            loading: true,
+            error: null
         }
     };
 }
@@ -20,17 +21,26 @@ export const searchReposOk = (res) => {
             totalCount: res.total_count,
             prev: res.prev,
             next: res.next,
-            loading: false
+            loading: false,
+            error: null
         }
     };
 }
 
 export const searchReposFail = (res) => {
+    let xhr = res.xhr;
     return {
         type: types.SEARCH_REPOS_FAIL,
         payload: {
+            items: [],
+            totalCount: 0,
+            prev: false,
+            next: false,
             loading: false,
-            error: res.message
+            error: {
+                title: `${xhr.status} ${xhr.statusText}`,
+                desc: xhr.response.message
+            }
         }
     };
 }

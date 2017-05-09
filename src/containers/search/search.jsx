@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import SearchPanel from '../../components/search-panel';
+import ErrorPanel from '../../components/error-panel';
 import ReposList from '../../components/repos-list';
 import Loader from '../../components/loader';
 import Pager from '../../components/pager';
@@ -25,25 +26,27 @@ class Search extends React.Component {
 
     render() {
 
-        let { query, page, items, totalCount, prev, next, loading } = this.props;
+        let { query, page, items, totalCount, prev, next, loading, error } = this.props;
 
         return (
             <div className="search">
                 <SearchPanel onSearch={this.onSearch} />
-                {totalCount > 0 && <div className="total-count">{totalCount} repo(s)</div>}
-                <div className="dimmer-limiter">
-                    {items.length > 0 && <ReposList repos={items}/>}
-                    {(items.length === 0 && query && !loading) && <div className="message">Nothing found</div>}
-                    {!query && 
-                        <div className="message">
-                            Enter search query to search for public repos<br/>(For example: "react")
+                {error?
+                    <ErrorPanel title={error.title} desc={error.desc}/>:
+                    <div>
+                        {totalCount > 0 && <div className="total-count">{totalCount} repo(s)</div>}
+                        <div className="dimmer-limiter">
+                            {items.length > 0 && <ReposList repos={items}/>}
+                            {(items.length === 0 && query && !loading) && <div className="message">Nothing found</div>}
+                            {!query && 
+                                <div className="message">Enter search query to search for public repos<br/>(For example: "react")</div>
+                            }
+                            {loading && <Dimmer loader/>}
                         </div>
-                    }
-                    {loading && <Dimmer loader/>}
-                </div>
-                {(prev || next) &&
-                    <Pager prevDisabled={!prev} nextDisabled={!next}
-                        onPrev={this.onPrev} onNext={this.onNext} />
+                        {(prev || next) &&
+                            <Pager prevDisabled={!prev} nextDisabled={!next} onPrev={this.onPrev} onNext={this.onNext} />
+                        }
+                    </div>
                 }
             </div>
         );
