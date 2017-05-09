@@ -18,6 +18,8 @@ export const searchReposOk = (res) => {
         payload: {
             items: res.items,
             totalCount: res.total_count,
+            prev: res.prev,
+            next: res.next,
             loading: false
         }
     };

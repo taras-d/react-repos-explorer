@@ -15,7 +15,10 @@ class ReposService {
             per_page: perPage 
         });
 
-        return $.get(`${this.rootUrl}/search/repositories?${params}`);
+        return $.get(`${this.rootUrl}/search/repositories?${params}`).done(res => {
+            res.prev = (page > 1);
+            res.next = (page < res.total_count / perPage);
+        });
     }
 
 }

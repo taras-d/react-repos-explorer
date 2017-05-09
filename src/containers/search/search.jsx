@@ -21,7 +21,7 @@ class Search extends React.Component {
 
     render() {
 
-        let { query, page, items, totalCount, loading } = this.props;
+        let { query, page, items, totalCount, prev, next, loading } = this.props;
 
         return (
             <div className="search">
@@ -32,13 +32,13 @@ class Search extends React.Component {
                     {(items.length === 0 && query && !loading) && <div className="message">Nothing found</div>}
                     {!query && 
                         <div className="message">
-                            Please specify search query to explore public repos<br/>For example "react"
+                            Enter search query to search for public repos<br/>(For example: "react")
                         </div>
                     }
                     {loading && <Dimmer loader/>}
                 </div>
                 {items.length > 0 &&
-                    <Pager prevDisabled={page === 1} nextDisabled={page >= totalCount / 6}
+                    <Pager prevDisabled={!prev} nextDisabled={!next}
                         onPrev={this.onPrev} onNext={this.onNext} />
                 }
             </div>
@@ -53,8 +53,9 @@ class Search extends React.Component {
     onSearch(query) {
         let { dispatch } = this.props;
         if (!query || !query.trim()) {
+            // Query empty - dispatch empty result
             dispatch( actions.searchRepos('', 1) );
-            dispatch( actions.searchReposOk({ items: [] }) );
+            dispatch( actions.searchReposOk({ items: [], total_count: 0 }) );
         } else {
             this.searchRepos(query, 1);
         }
