@@ -13,10 +13,14 @@ import * as actions from '../../actions/search';
 class Search extends React.Component {
 
     constructor(props) {
+
         super(props);
+
         this.onSearch = this.onSearch.bind(this);
         this.onPrev = this.onPrev.bind(this);
         this.onNext = this.onNext.bind(this);
+
+        this.sub = null;
     }
 
     render() {
@@ -37,7 +41,7 @@ class Search extends React.Component {
                     }
                     {loading && <Dimmer loader/>}
                 </div>
-                {items.length > 0 &&
+                {(prev || next) &&
                     <Pager prevDisabled={!prev} nextDisabled={!next}
                         onPrev={this.onPrev} onNext={this.onNext} />
                 }
@@ -45,13 +49,29 @@ class Search extends React.Component {
         );
     }
 
+    componentWillUnmount() {
+        // Cancel search request on component umount
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+    }
+
     searchRepos(query, page) {
+
         let { dispatch } = this.props;
-        dispatch( actions.searchReposAsync(query, page) );
+
+        // Cancel previous search request
+        if (this.sub) {
+            this.sub.unsubscribe();
+        }
+
+        this.sub = dispatch( actions.searchReposAsync(query, page) ).subscribe();
     }
 
     onSearch(query) {
+
         let { dispatch } = this.props;
+
         if (!query || !query.trim()) {
             // Query empty - dispatch empty result
             dispatch( actions.searchRepos('', 1) );

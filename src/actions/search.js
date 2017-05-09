@@ -38,7 +38,7 @@ export const searchReposFail = (res) => {
 export const searchReposAsync = (query, page) => {
     return dispatch => {
         dispatch( searchRepos(query, page) );
-        return reposService.searchRepos(query, page).then(
+        return reposService.searchRepos(query, page).do(
             res => dispatch( searchReposOk(res) ),
             res => dispatch( searchReposFail(res) )
         );
