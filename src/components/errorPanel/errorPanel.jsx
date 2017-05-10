@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './errorPanel.less';
+
 const ErrorPanel = ({ title, desc }) => {
     return (
         <div className="error-panel">

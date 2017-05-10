@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import './pager.less';
+
 const Pager = ({ prev, next }) => {
     return (
         <ul className="pager">

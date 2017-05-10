@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { utils } from '../api';
-import SearchPanel from '../components/searchPanel';
 import ErrorPanel from '../components/errorPanel';
-import ReposList from '../components/reposList';
 import Loader from '../components/loader';
 import Pager from '../components/pager';
 import Dimmer from '../components/dimmer';
+
+import SearchPanel from './searchPanel';
+import ReposList from './reposList';
 
 import * as actions from './searchActions';
 
@@ -54,7 +55,7 @@ class Search extends React.Component {
 
         return (
             <div className="search">
-                <SearchPanel onSearch={q => 
+                <SearchPanel query={query} onSearch={q => 
                     history.push(`/?${utils.stringifyQuery({ query: q })}`) }/>
                 {result}
             </div>

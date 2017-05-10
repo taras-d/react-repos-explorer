@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Loader from '../loader';
 
+import './dimmer.less';
+
 const Dimmer = ({ loader }) => {
     return (
         <div className="dimmer">
