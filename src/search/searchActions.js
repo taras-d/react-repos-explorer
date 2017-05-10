@@ -1,13 +1,6 @@
 import { reposService } from '../api';
 import * as types from './searchActionTypes';
 
-export const setSearchQuery = (query) => {
-    return {
-        type: types.SET_SEARCH_QUERY,
-        payload: query
-    }
-}
-
 export const searchRepos = (query, page) => {
     return {
         type: types.SEARCH_REPOS,
@@ -40,9 +33,8 @@ export const searchReposFail = (err) => {
         payload: {
             items: [],
             totalCount: 0,
-            prev: false,
+            prev: null,
             next: false,
-            loading: false,
             error: {
                 title: err.detailedStatus,
                 desc: err.response.message

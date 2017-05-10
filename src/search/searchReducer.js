@@ -5,17 +5,15 @@ const initialState = {
     page: 1,
     items: [],
     totalCount: 0,
-    loading: false
+    prev: null,
+    next: null,
+    loading: false,
+    error: null
 };
 
 const searchReducer = (state = initialState, action) => {
 
     switch (action.type) {
-
-        case types.SET_SEARCH_QUERY:
-            return Object.assign({}, state, {
-                query: action.payload
-            });
 
         case types.SEARCH_REPOS:
             return Object.assign({}, state, action.payload);
