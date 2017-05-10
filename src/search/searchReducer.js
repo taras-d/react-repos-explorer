@@ -1,4 +1,4 @@
-import * as types from '../constants/search-actions';
+import * as types from './searchActionTypes';
 
 const initialState = {
     query: '',
@@ -8,7 +8,7 @@ const initialState = {
     loading: false
 };
 
-export const search = (state = initialState, action) => {
+const searchReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
@@ -27,3 +27,5 @@ export const search = (state = initialState, action) => {
     }
 
 }
+
+export { searchReducer };

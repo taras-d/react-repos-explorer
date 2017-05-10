@@ -1,17 +1,21 @@
-import { createStore, applyMiddleware } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 
-import reducer from './reducers';
+import { searchReducer } from './search';
 
-const DEV_TOOL_COMPOSE = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+// Create root reducer by combining domain reducers 
+const rootReducer = combineReducers({
+    search: searchReducer
+});
 
-const store = createStore(
-    reducer,
-    // If DevTool extensin defined - compose middleware and extension,
-    // otherwise use only middleware
-    DEV_TOOL_COMPOSE?
-        DEV_TOOL_COMPOSE(applyMiddleware(ReduxThunk)):
-        applyMiddleware(ReduxThunk)
-);
+// Create store enhancer (middleware)
+// If DevTool extension available - compose extension with middleware,
+// otherwise use only middleware
+const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__(applyMiddleware(ReduxThunk)):
+    applyMiddleware(ReduxThunk);
+
+// Create store
+const store = createStore(rootReducer, enhancer);
 
 export default store;

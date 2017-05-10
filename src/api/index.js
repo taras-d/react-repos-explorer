@@ -1,1 +1,1 @@
-export { reposService } from './repos-service';
+export { reposService } from './reposService';

@@ -1,5 +1,5 @@
-import * as types from '../constants/search-actions';
 import { reposService } from '../api';
+import * as types from './searchActionTypes';
 
 export const searchRepos = (query, page) => {
     return {
@@ -27,8 +27,7 @@ export const searchReposOk = (res) => {
     };
 }
 
-export const searchReposFail = (res) => {
-    let xhr = res.xhr;
+export const searchReposFail = (err) => {
     return {
         type: types.SEARCH_REPOS_FAIL,
         payload: {
@@ -38,8 +37,8 @@ export const searchReposFail = (res) => {
             next: false,
             loading: false,
             error: {
-                title: `${xhr.status} ${xhr.statusText}`,
-                desc: xhr.response.message
+                title: err.detailedStatus,
+                desc: err.response.message
             }
         }
     };

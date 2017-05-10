@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 
-import SearchPanel from '../../components/search-panel';
-import ErrorPanel from '../../components/error-panel';
-import ReposList from '../../components/repos-list';
-import Loader from '../../components/loader';
-import Pager from '../../components/pager';
-import Dimmer from '../../components/dimmer';
+import SearchPanel from '../components/search-panel';
+import ErrorPanel from '../components/error-panel';
+import ReposList from '../components/repos-list';
+import Loader from '../components/loader';
+import Pager from '../components/pager';
+import Dimmer from '../components/dimmer';
 
-import * as actions from '../../actions/search';
+import * as actions from './searchActions';
+
+import './search.less';
 
 class Search extends React.Component {
 
