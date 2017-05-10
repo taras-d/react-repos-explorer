@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
+ 
 const ReposList = ({ repos }) => {
 
     let result = repos.map(repo => 
@@ -23,5 +24,9 @@ const ReposList = ({ repos }) => {
     );
 
 }
+
+ReposList.propTypes = {
+    repos: PropTypes.array
+};
 
 export default ReposList;

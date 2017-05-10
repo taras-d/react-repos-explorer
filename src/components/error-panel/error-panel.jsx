@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ErrorPanel = ({ title, desc }) => {
     return (
@@ -12,5 +13,10 @@ const ErrorPanel = ({ title, desc }) => {
         </div>
     );
 }
+
+ErrorPanel.propTypes = {
+    title: PropTypes.string,
+    desc: PropTypes.string
+};
 
 export default ErrorPanel;

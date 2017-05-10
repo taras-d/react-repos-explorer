@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Loader from '../loader';
 
@@ -10,5 +11,9 @@ const Dimmer = ({ loader }) => {
         </div>
     );
 }
+
+Dimmer.propTypes = {
+    loader: PropTypes.bool
+};
 
 export default Dimmer;
