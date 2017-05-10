@@ -62,25 +62,26 @@ class Search extends React.Component {
     }
 
     historyChange() {
+        // Search repos when query params changed
         this.searchRepos();
     }
 
     componentDidMount() {
+        // Search repos when component mounted
         this.searchRepos();
     }
 
     componentWillUnmount() {
+
+        // Stop listening location changes
         this.unlistenHistory();
-        if (this.searchSub) {
-            this.searchSub.unsubscribe();
-        }
+
+        this.cancelSearchRequest();
     }
 
     searchRepos() {
 
-        if (this.searchSub) {
-            this.searchSub.unsubscribe();
-        }
+        this.cancelSearchRequest();
 
         let { query, page } = utils.parseQuery(this.props.history.location.search);
         page = +page || 1;
@@ -93,6 +94,13 @@ class Search extends React.Component {
         } else {
             this.searchSub = dispatch( 
                 actions.searchReposAsync(query, page) ).subscribe();
+        }
+    }
+
+    cancelSearchRequest() {
+        // Cancel search request in case if it not finished
+        if (this.searchSub) {
+            this.searchSub.unsubscribe();
         }
     }
 
