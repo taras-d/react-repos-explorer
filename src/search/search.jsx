@@ -68,9 +68,11 @@ class Search extends React.Component {
         );
     }
 
-    historyChange() {
-        // Search repos when query params changed
-        this.searchRepos();
+    historyChange(location) {
+        if (location.pathname === '/') {
+            // Search repos when query params changed
+            this.searchRepos();
+        }
     }
 
     componentDidMount() {

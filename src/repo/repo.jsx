@@ -52,8 +52,10 @@ class Repo extends React.Component {
         }
     }
 
-    historyChange() {
-        this.getRepo();
+    historyChange(location) {
+        if (location.pathname.startsWith('/repo')) {
+            this.getRepo();
+        }
     }
 
     getRepo() {
