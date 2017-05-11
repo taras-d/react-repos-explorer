@@ -2,10 +2,12 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 
 import { searchReducer } from './search';
+import { repoReducer } from './repo';
 
 // Create root reducer by combining domain reducers 
 const rootReducer = combineReducers({
-    search: searchReducer
+    search: searchReducer,
+    repo: repoReducer
 });
 
 // Create store enhancer (middleware)

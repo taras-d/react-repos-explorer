@@ -27,7 +27,7 @@ export const searchReposOk = (res) => {
     };
 }
 
-export const searchReposFail = (err) => {
+export const searchReposFail = (res) => {
     return {
         type: types.SEARCH_REPOS_FAIL,
         payload: {
@@ -36,8 +36,8 @@ export const searchReposFail = (err) => {
             prev: null,
             next: false,
             error: {
-                title: err.detailedStatus,
-                desc: err.response.message
+                title: res.detailedStatus,
+                desc: res.response.message
             }
         }
     };

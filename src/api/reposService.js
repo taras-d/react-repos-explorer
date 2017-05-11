@@ -19,14 +19,20 @@ class ReposService {
 
             let data = res.response;
 
+            // Prepare prev page parameters
             data.prev = page > 1? 
                 utils.stringifyQuery({ page: page - 1, query }): null;
 
+            // Prepate next page parameters
             data.next = page < data.total_count / perPage?
                 utils.stringifyQuery({ page: page + 1, query }): null;
 
             return data;
         });
+    }
+
+    getRepo(owner, repo) {
+        return ajaxService.get(`${this.rootUrl}/repos/${owner}/${repo}`).map(res => res.response);
     }
 
 }
