@@ -14,6 +14,12 @@ import * as actions from './searchActions';
 
 import './search.less';
 
+/**
+ * Search
+ * 
+ * Container displays search panel and search results.
+ */
+
 class Search extends React.Component {
 
     constructor(props) {
@@ -73,10 +79,8 @@ class Search extends React.Component {
     }
 
     componentWillUnmount() {
-
         // Stop listening location changes
         this.unlistenHistory();
-
         this.cancelSearchRequest();
     }
 

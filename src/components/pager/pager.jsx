@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 
 import './pager.less';
 
+/**
+ * Pager
+ * 
+ * Displays links to the previous and next pages
+ */
+
 const Pager = ({ prev, next }) => {
     return (
         <ul className="pager">

@@ -1,5 +1,5 @@
 import { ajaxService } from './ajaxService';
-import * as utils from './utils';
+import { utils } from '/';
 
 class ReposService {
 

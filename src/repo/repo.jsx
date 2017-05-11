@@ -1,15 +1,15 @@
 import React from 'react';
 
-class Detail extends React.Component {
+class Repo extends React.Component {
 
     constructor(props) {
         super(props);
     }
 
     render() {
-        return (<div>Detail</div>);
+        return (<div>Repo details</div>);
     }
 
 }
 
-export default Detail;
+export default Repo;

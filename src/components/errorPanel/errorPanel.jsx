@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 
 import './errorPanel.less';
 
+/**
+ * Error panel
+ * 
+ * Displays error title and description.
+ */
+
 const ErrorPanel = ({ title, desc }) => {
     return (
         <div className="error-panel">

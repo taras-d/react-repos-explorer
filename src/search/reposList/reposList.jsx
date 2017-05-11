@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './reposList.less';
+
+/**
+ * Repos list
+ * 
+ * Displays list of repositories.
+ */
  
 const ReposList = ({ repos }) => {
 
@@ -13,7 +19,7 @@ const ReposList = ({ repos }) => {
                 <span className="glyphicon glyphicon-star"></span>
             </div>
             <h4 className="list-group-item-heading">
-                <Link to={`/detail/${repo.owner.login}/${repo.name}`}>{repo.full_name}</Link>
+                <Link to={`/repo/${repo.owner.login}/${repo.name}`}>{repo.full_name}</Link>
             </h4>
             <p className="list-group-item-text">{repo.description}</p>
         </div>

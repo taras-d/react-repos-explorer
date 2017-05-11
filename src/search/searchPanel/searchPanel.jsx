@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 
 import './searchPanel.less';
 
+/**
+ * Seach panel
+ * 
+ * Display query input and search button.
+ * Note that component has internal state to control only query input.
+ * 
+ * Component provides 'query' and 'onSearch' properties to allow parent component
+ * set query value and react on search submit.
+ */
+
 class SearchPanel extends React.Component {
 
     constructor(props) {
