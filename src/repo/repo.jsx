@@ -14,7 +14,7 @@ class Repo extends React.Component {
 
         utils.bindMethod(this, 'historyChange');
 
-        this.unlisten = this.props.history.listen(this.historyChange);
+        this.unlistenHistory = this.props.history.listen(this.historyChange);
         this.repoSub = null;
     }
 
@@ -41,21 +41,21 @@ class Repo extends React.Component {
         );
     }
 
+    historyChange(location) {
+        // Get repo when url params changed
+        if (location.pathname.startsWith('/repo')) {
+            this.getRepo();
+        }
+    }
+
     componentDidMount() {
+        // Get repo when component mounted
         this.getRepo();
     }
 
     componentWillUnmount() {
-        this.unlisten();
-        if (this.repoSub) {
-            this.repoSub.unsubscribe();
-        }
-    }
-
-    historyChange(location) {
-        if (location.pathname.startsWith('/repo')) {
-            this.getRepo();
-        }
+        this.unlistenHistory();
+        this.cancelRequest();
     }
 
     getRepo() {
@@ -63,11 +63,15 @@ class Repo extends React.Component {
         let { dispatch } = this.props;
         let { owner, repo } = this.props.match.params;
     
+        this.cancelRequest();
+
+        this.repoSub = dispatch( actions.getRepoAsync(owner, repo) ).subscribe();
+    }
+
+    cancelRequest() {
         if (this.repoSub) {
             this.repoSub.unsubscribe();
         }
-
-        this.repoSub = dispatch( actions.getRepoAsync(owner, repo) ).subscribe();
     }
 
 }

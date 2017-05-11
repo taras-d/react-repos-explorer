@@ -69,8 +69,8 @@ class Search extends React.Component {
     }
 
     historyChange(location) {
+        // Search repos when query params changed
         if (location.pathname === '/') {
-            // Search repos when query params changed
             this.searchRepos();
         }
     }
@@ -81,14 +81,13 @@ class Search extends React.Component {
     }
 
     componentWillUnmount() {
-        // Stop listening location changes
         this.unlistenHistory();
-        this.cancelSearchRequest();
+        this.cancelRequest();
     }
 
     searchRepos() {
 
-        this.cancelSearchRequest();
+        this.cancelRequest();
 
         let { query, page } = utils.parseQuery(this.props.history.location.search);
         page = +page || 1;
@@ -104,8 +103,7 @@ class Search extends React.Component {
         }
     }
 
-    cancelSearchRequest() {
-        // Cancel search request in case if it not finished
+    cancelRequest() {
         if (this.searchSub) {
             this.searchSub.unsubscribe();
         }
