@@ -7,6 +7,7 @@ export const getRepo = (owner, repo) => {
         payload: {
             owner,
             repo,
+            details: null,
             loading: true,
             error: null
         }
@@ -28,6 +29,7 @@ export const getRepoFail = (res) => {
     return {
         type: types.GET_REPO_FAIL,
         payload: {
+            details: null,
             loading: false,
             error: {
                 title: res.detailedStatus,

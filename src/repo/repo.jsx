@@ -7,6 +7,8 @@ import Loader from '../components/loader';
 import { utils } from '../api';
 import * as actions from './repoActions';
 
+import RepoDetails from './repoDetails';
+
 class Repo extends React.Component {
 
     constructor(props) {
@@ -22,21 +24,11 @@ class Repo extends React.Component {
 
         let { details, loading, error } = this.props;
 
-        let result;
-
-        if (error) {
-            result = <ErrorPanel title={error.title} desc={error.desc} />
-        } else {
-            result = (
-                <div>
-                    {loading? <Loader/>: <pre>{JSON.stringify(details, null, 2)}</pre>}
-                </div>
-            );
-        }
-
         return (
             <div className="repo">
-                {result}
+                {error && <ErrorPanel title={error.title} desc={error.desc} />}
+                {loading && <Loader/>}
+                {details && <RepoDetails details={details}/>}
             </div>
         );
     }
