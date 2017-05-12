@@ -95,8 +95,7 @@ class Search extends React.Component {
         let { dispatch } = this.props;
 
         if (!query || !query.trim()) {
-            dispatch( actions.searchRepos('', 1) );
-            dispatch( actions.searchReposOk({ items: [], total_count: 0 }) );
+            dispatch( actions.searchNoQuery() );
         } else {
             this.searchSub = dispatch( 
                 actions.searchReposAsync(query, page) ).subscribe();

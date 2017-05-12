@@ -1,6 +1,21 @@
 import { reposService } from '../api';
 import * as types from './searchActionTypes';
 
+export const searchNoQuery = () => {
+    return {
+        type: types.SEARCH_NO_QUERY,
+        payload: {
+            query: '',
+            items: [],
+            totalCount: 0,
+            prev: null,
+            next: null,
+            loading: false,
+            error: null
+        }
+    };
+}
+
 export const searchRepos = (query, page) => {
     return {
         type: types.SEARCH_REPOS,

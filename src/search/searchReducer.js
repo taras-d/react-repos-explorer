@@ -15,6 +15,9 @@ const searchReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case types.SEARCH_NO_QUERY:
+            return Object.assign({}, state, action.payload);
+
         case types.SEARCH_REPOS:
             return Object.assign({}, state, action.payload);
 
