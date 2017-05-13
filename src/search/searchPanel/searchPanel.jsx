@@ -28,10 +28,12 @@ class SearchPanel extends React.Component {
             <div className="search-panel">
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <form onSubmit={e => this.submit(e)}>
+                        <form onSubmit={e => this.submit(e)} className="input-group">
                             <input type="text" className="form-control" placeholder="Query"
                                 value={query} onChange={e => this.queryChange(e)}/>
-                            <button type="submit" className="btn btn-default">Search</button>
+                            <span className="input-group-btn">
+                                <button type="submit" className="btn btn-default">Search</button>
+                            </span>
                         </form>
                     </div> 
                 </div>
