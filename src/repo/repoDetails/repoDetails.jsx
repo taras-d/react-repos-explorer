@@ -1,19 +1,23 @@
 import React from 'react';
+import moment from 'moment';
 
 import './repoDetails.less';
 
 const RepoDetails = ({ details }) => {
 
-    let rows = [
+    let stats = [
         { title: 'Language', value: details.language },
-        { title: 'Watchers', value: details.watchers_count },
+        { title: 'Created', value: moment(details.created_at).fromNow() },
+        { title: 'Updated', value: moment(details.updated_at).fromNow() },
         { title: 'Stargazers', value: details.stargazers_count },
-        { title: 'Forks', value: details.forks_count }
+        { title: 'Subscribers', value: details.subscribers_count },
+        { title: 'Forks', value: details.forks_count },
+        { title: 'Open issues', value: details.open_issues_count }
     ];
 
-    rows = rows.map((r, i) => 
+    stats = stats.map((r, i) => 
         <div className="row" key={i}>
-            <div className="col-sm-3"><label>{r.title}</label></div>
+            <div className="col-sm-3">{r.title}</div>
             <div className="col-sm-9">{r.value}</div>
         </div>
     );
@@ -26,7 +30,7 @@ const RepoDetails = ({ details }) => {
                         <a href={details.html_url} target="_blank">{details.full_name}</a>
                     </div>
                     <div className="repo-description">{details.description}</div>
-                    {rows}
+                    <div className="repo-stats">{stats}</div>
                 </div>
             </div>
         </div>
