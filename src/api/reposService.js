@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+
 import { ajaxService } from './ajaxService';
 import { utils } from '/';
 
@@ -8,6 +10,11 @@ class ReposService {
     }
 
     searchRepos(query, page, perPage = 6) {
+
+        if (!query.trim()) {
+            // Return empty result for empty query
+            return Observable.of({ items: [], total_count: 0 });
+        }
 
         let params = utils.stringifyQuery({
             q: query, 

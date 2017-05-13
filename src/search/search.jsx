@@ -90,16 +90,13 @@ class Search extends React.Component {
         this.cancelRequest();
 
         let { query, page } = utils.parseQuery(this.props.history.location.search);
+        query = query || '';
         page = +page || 1;
 
         let { dispatch } = this.props;
 
-        if (!query || !query.trim()) {
-            dispatch( actions.searchNoQuery() );
-        } else {
-            this.searchSub = dispatch( 
-                actions.searchReposAsync(query, page) ).subscribe();
-        }
+        this.searchSub = dispatch( 
+            actions.searchReposAsync(query, page) ).subscribe();
     }
 
     cancelRequest() {
