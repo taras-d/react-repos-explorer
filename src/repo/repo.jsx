@@ -57,7 +57,7 @@ class Repo extends React.Component {
     
         this.cancelRequest();
 
-        this.repoSub = dispatch( actions.getRepoAsync(owner, repo) ).subscribe();
+        this.repoSub = dispatch( actions.getRepo(owner, repo) ).subscribe();
     }
 
     cancelRequest() {

@@ -1,3 +1,3 @@
-export const GET_REPO = 'GET_REPO';
-export const GET_REPO_OK = 'GET_REPO_OK';
-export const GET_REPO_FAIL = 'GET_REPO_FAIL';
+export const GET_REPO_REQUEST = 'GET_REPO_REQUEST';
+export const GET_REPO_SUCCESS = 'GET_REPO_SUCCESS';
+export const GET_REPO_FAILURE = 'GET_REPO_FAILURE';

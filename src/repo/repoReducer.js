@@ -12,13 +12,13 @@ const repoReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case types.GET_REPO:
+        case types.GET_REPO_REQUEST:
             return Object.assign({}, state, action.payload);
 
-        case types.GET_REPO_OK:
+        case types.GET_REPO_SUCCESS:
             return Object.assign({}, state, action.payload);
 
-        case types.GET_REPO_FAIL:
+        case types.GET_REPO_FAILURE:
             return Object.assign({}, state, action.payload);
 
         default:

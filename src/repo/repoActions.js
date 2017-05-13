@@ -1,9 +1,9 @@
 import * as types from './repoActionTypes';
 import { reposService } from '../api';
 
-export const getRepo = (owner, repo) => {
+export const getRepoRequest = (owner, repo) => {
     return {
-        type: types.GET_REPO,
+        type: types.GET_REPO_REQUEST,
         payload: {
             owner,
             repo,
@@ -14,9 +14,9 @@ export const getRepo = (owner, repo) => {
     };
 }
 
-export const getRepoOk = (res) => {
+export const getRepoSuccess = (res) => {
     return {
-        type: types.GET_REPO_OK,
+        type: types.GET_REPO_SUCCESS,
         payload: {
             details: res,
             loading: false,
@@ -25,9 +25,9 @@ export const getRepoOk = (res) => {
     };
 }
 
-export const getRepoFail = (res) => {
+export const getRepoFailure = (res) => {
     return {
-        type: types.GET_REPO_FAIL,
+        type: types.GET_REPO_FAILURE,
         payload: {
             details: null,
             loading: false,
@@ -39,12 +39,13 @@ export const getRepoFail = (res) => {
     };
 }
 
-export const getRepoAsync = (owner, repo) => {
+// Get repo async action
+export const getRepo = (owner, repo) => {
     return dispatch => {
-        dispatch(getRepo(owner, repo));
+        dispatch( getRepoRequest(owner, repo) );
         return reposService.getRepo(owner, repo).do(
-            res => dispatch(getRepoOk(res)),
-            err => dispatch(getRepoFail(err))
+            res => dispatch( getRepoSuccess(res) ),
+            err => dispatch( getRepoFailure(err) )
         );
     }
 }
