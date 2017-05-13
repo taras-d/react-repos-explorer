@@ -1,9 +1,9 @@
 import { reposService } from '../api';
 import * as types from './searchActionTypes';
 
-export const searchRepos = (query, page) => {
+export const searchReposRequest = (query, page) => {
     return {
-        type: types.SEARCH_REPOS,
+        type: types.SEARCH_REPOS_REQUEST,
         payload: { 
             query, 
             page,
@@ -13,9 +13,9 @@ export const searchRepos = (query, page) => {
     };
 }
 
-export const searchReposOk = (res) => {
+export const searchReposSuccess = (res) => {
     return {
-        type: types.SEARCH_REPOS_OK,
+        type: types.SEARCH_REPOS_SUCCESS,
         payload: {
             items: res.items,
             totalCount: res.total_count,
@@ -27,14 +27,14 @@ export const searchReposOk = (res) => {
     };
 }
 
-export const searchReposFail = (res) => {
+export const searchReposFailure = (res) => {
     return {
-        type: types.SEARCH_REPOS_FAIL,
+        type: types.SEARCH_REPOS_FAILURE,
         payload: {
             items: [],
             totalCount: 0,
             prev: null,
-            next: false,
+            next: null,
             error: {
                 title: res.detailedStatus,
                 desc: res.response.message
@@ -43,12 +43,13 @@ export const searchReposFail = (res) => {
     };
 }
 
-export const searchReposAsync = (query, page) => {
+// Search repos async action 
+export const searchRepos = (query, page) => {
     return dispatch => {
-        dispatch( searchRepos(query, page) );
+        dispatch( searchReposRequest(query, page) );
         return reposService.searchRepos(query, page).do(
-            res => dispatch( searchReposOk(res) ),
-            res => dispatch( searchReposFail(res) )
+            res => dispatch( searchReposSuccess(res) ),
+            res => dispatch( searchReposFailure(res) )
         );
     }
 }

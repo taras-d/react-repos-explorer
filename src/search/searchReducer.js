@@ -15,13 +15,13 @@ const searchReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case types.SEARCH_REPOS:
+        case types.SEARCH_REPOS_REQUEST:
             return Object.assign({}, state, action.payload);
 
-        case types.SEARCH_REPOS_OK:
+        case types.SEARCH_REPOS_SUCCESS:
             return Object.assign({}, state, action.payload);
 
-        case types.SEARCH_REPOS_FAIL:
+        case types.SEARCH_REPOS_FAILURE:
             return Object.assign({}, state, action.payload);
 
         default:

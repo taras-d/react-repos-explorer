@@ -96,7 +96,7 @@ class Search extends React.Component {
         let { dispatch } = this.props;
 
         this.searchSub = dispatch( 
-            actions.searchReposAsync(query, page) ).subscribe();
+            actions.searchRepos(query, page) ).subscribe();
     }
 
     cancelRequest() {
