@@ -7,7 +7,10 @@ import Loader from '../components/loader';
 import { utils } from '../api';
 import * as actions from './repoActions';
 
+import RepoMeta from './repoMeta';
 import RepoDetails from './repoDetails';
+
+import './repo.less';
 
 class Repo extends React.Component {
 
@@ -24,11 +27,24 @@ class Repo extends React.Component {
 
         let { details, loading, error } = this.props;
 
+        if (loading) {
+            return <Loader/>;
+        } else if (error) {
+            return <ErrorPanel title={error.title} desc={error.desc} />;
+        }
+
+        if (!details) {
+            details = {};
+        }
+
         return (
             <div className="repo">
-                {error && <ErrorPanel title={error.title} desc={error.desc} />}
-                {loading && <Loader/>}
-                {details && <RepoDetails details={details}/>}
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        <RepoMeta details={details}/>
+                        <RepoDetails details={details}/>
+                    </div>
+                </div>
             </div>
         );
     }

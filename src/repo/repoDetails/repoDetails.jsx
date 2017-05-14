@@ -26,17 +26,7 @@ const RepoDetails = ({ details }) => {
     );
 
     return (
-        <div className="repo-details">
-            <div className="panel panel-default">
-                <div className="panel-body">
-                    <div className="repo-full-name">
-                        <a href={details.html_url} target="_blank">{details.full_name}</a>
-                    </div>
-                    <div className="repo-description">{details.description}</div>
-                    <div className="repo-stats">{stats}</div>
-                </div>
-            </div>
-        </div>
+        <div className="repo-details">{stats}</div>
     );
 
 }
