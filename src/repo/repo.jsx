@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 
 import ErrorPanel from '../components/errorPanel';
 import Loader from '../components/loader';
@@ -7,8 +8,9 @@ import Loader from '../components/loader';
 import { utils } from '../api';
 import * as actions from './repoActions';
 
-import RepoMeta from './repoMeta';
 import RepoDetails from './repoDetails';
+import RepoMeta from './repoMeta';
+import RepoTabs from './repoTabs';
 
 import './repo.less';
 
@@ -25,7 +27,7 @@ class Repo extends React.Component {
 
     render() {
 
-        let { details, loading, error } = this.props;
+        let { details, loading, error, match } = this.props;
 
         if (loading) {
             return <Loader/>;
@@ -42,7 +44,10 @@ class Repo extends React.Component {
                 <div className="panel panel-default">
                     <div className="panel-body">
                         <RepoMeta details={details}/>
-                        <RepoDetails details={details}/>
+                        <RepoTabs/>
+                        <Route path={`${match.url}`} exact render={() => <RepoDetails details={details}/>}/>
+                        <Route path={`${match.url}/owner`} render={() => <div>Owner</div>}/>
+                        <Route path={`${match.url}/languages`} render={() => <div>Languages</div>}/>
                     </div>
                 </div>
             </div>
@@ -51,7 +56,9 @@ class Repo extends React.Component {
 
     historyChange(location) {
         // Get repo when url params changed
-        if (location.pathname.startsWith('/repo')) {
+        let { owner, repo, match } = this.props;
+        if (location.pathname.startsWith('/repo') &&
+            (owner !== match.params.owner || repo !== match.params.repo) ) {
             this.getRepo();
         }
     }

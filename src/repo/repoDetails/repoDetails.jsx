@@ -20,8 +20,8 @@ const RepoDetails = ({ details }) => {
 
     stats = stats.map((r, i) => 
         <div className="row" key={i}>
-            <div className="col-sm-3">{r.title}</div>
-            <div className="col-sm-9">{r.value}</div>
+            <div className="col-xs-3">{r.title}</div>
+            <div className="col-xs-9">{r.value}</div>
         </div>
     );
 
