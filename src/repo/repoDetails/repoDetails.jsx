@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
+import { utils } from '../../api';
 import './repoDetails.less';
 
 const RepoDetails = ({ details }) => {
@@ -9,10 +10,12 @@ const RepoDetails = ({ details }) => {
         { title: 'Language', value: details.language },
         { title: 'Created', value: moment(details.created_at).fromNow() },
         { title: 'Updated', value: moment(details.updated_at).fromNow() },
+        { title: 'Pushed', value: moment(details.pushed_at).fromNow() },
         { title: 'Stargazers', value: details.stargazers_count },
         { title: 'Subscribers', value: details.subscribers_count },
         { title: 'Forks', value: details.forks_count },
-        { title: 'Open issues', value: details.open_issues_count }
+        { title: 'Open issues', value: details.open_issues_count },
+        { title: 'Size', value: utils.getRepoSize(details.size) }
     ];
 
     stats = stats.map((r, i) => 
