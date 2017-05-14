@@ -6,7 +6,7 @@ const RepoMeta = ({ details }) => {
     return (
         <div className="repo-meta">
             <div className="repo-full-name">
-                <a href={details.html_url} >{details.full_name}</a>    
+                <a href={details.html_url} target="_blank">{details.full_name}</a>    
             </div>
             <div className="repo-description">{details.description}</div>
         </div>

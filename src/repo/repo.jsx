@@ -10,6 +10,7 @@ import * as actions from './repoActions';
 
 import RepoDetails from './repoDetails';
 import RepoMeta from './repoMeta';
+import RepoOwner from './repoOwner';
 import RepoTabs from './repoTabs';
 
 import './repo.less';
@@ -36,7 +37,7 @@ class Repo extends React.Component {
         }
 
         if (!details) {
-            details = {};
+            return null;
         }
 
         return (
@@ -46,7 +47,7 @@ class Repo extends React.Component {
                         <RepoMeta details={details}/>
                         <RepoTabs/>
                         <Route path={`${match.url}`} exact render={() => <RepoDetails details={details}/>}/>
-                        <Route path={`${match.url}/owner`} render={() => <div>Owner</div>}/>
+                        <Route path={`${match.url}/owner`} render={() => <RepoOwner owner={details.owner}/>}/>
                         <Route path={`${match.url}/languages`} render={() => <div>Languages</div>}/>
                     </div>
                 </div>
