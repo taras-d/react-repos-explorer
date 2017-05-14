@@ -96,6 +96,6 @@ class Repo extends React.Component {
 
 }
 
-const mapStateToProps = state => state.repo;
+const mapStateToProps = state => state.repo.details;
 
 export default connect(mapStateToProps)(Repo);

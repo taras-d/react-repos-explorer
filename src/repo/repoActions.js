@@ -69,7 +69,7 @@ export const getRepoLangSuccess = (res) => {
     return {
         type: types.GET_REPO_LANG_SUCCESS,
         payload: {
-            lang: res,
+            languages: res,
             loading: false,
             error: null
         }
