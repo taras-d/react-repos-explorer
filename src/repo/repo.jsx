@@ -9,6 +9,7 @@ import { utils } from '../api';
 import * as actions from './repoActions';
 
 import RepoDetails from './repoDetails';
+import RepoLang from './repoLang';
 import RepoMeta from './repoMeta';
 import RepoOwner from './repoOwner';
 import RepoTabs from './repoTabs';
@@ -46,9 +47,12 @@ class Repo extends React.Component {
                     <div className="panel-body">
                         <RepoMeta details={details}/>
                         <RepoTabs/>
-                        <Route path={`${match.url}`} exact render={() => <RepoDetails details={details}/>}/>
-                        <Route path={`${match.url}/owner`} render={() => <RepoOwner owner={details.owner}/>}/>
-                        <Route path={`${match.url}/languages`} render={() => <div>Languages</div>}/>
+                        <Route path={`${match.url}`} exact 
+                            render={() => <RepoDetails details={details}/>}/>
+                        <Route path={`${match.url}/owner`} 
+                            render={() => <RepoOwner owner={details.owner}/>}/>
+                        <Route path={`${match.url}/languages`} 
+                            render={() => <RepoLang/> }/>
                     </div>
                 </div>
             </div>

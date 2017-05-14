@@ -42,6 +42,26 @@ class ReposService {
         return ajaxService.get(`${this.rootUrl}/repos/${owner}/${repo}`).map(res => res.response);
     }
 
+    getRepoLang(owner, repo) {
+        return ajaxService.get(`${this.rootUrl}/repos/${owner}/${repo}/languages`).map(res => {
+
+            // Get total bytes
+            let total = 0;
+            for (let p in res) {
+                total += res[p];
+            }
+
+            // Transform bytes to percents
+            let size;
+            for (let p in res) {
+                size = res[p];
+                res[p] = (size * 100 / total).toFixed(1);
+            }
+
+            return res;
+        });
+    }
+
 }
 
 const reposService = new ReposService();
