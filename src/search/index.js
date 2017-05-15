@@ -1,4 +1,4 @@
-import Search from './search';
+import Search from './containers/search';
 import { searchReducer } from './searchReducer';
 
 export {
