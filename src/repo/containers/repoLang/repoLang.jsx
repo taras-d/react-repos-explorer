@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { reposService } from '../../api';
+import { reposService } from '../../../api';
 
 import './repoLang.less';
 

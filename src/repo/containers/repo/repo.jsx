@@ -2,17 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import ErrorPanel from '../components/errorPanel';
-import Loader from '../components/loader';
+import { utils } from '../../../api';
 
-import { utils } from '../api';
-import * as actions from './repoActions';
+import ErrorPanel from '../../../components/errorPanel';
+import Loader from '../../../components/loader';
 
-import RepoDetails from './repoDetails';
-import RepoLang from './repoLang';
-import RepoMeta from './repoMeta';
-import RepoOwner from './repoOwner';
-import RepoTabs from './repoTabs';
+import * as actions from '../../repoActions';
+
+import RepoDetails from '../../components/repoDetails';
+import RepoMeta from '../../components/repoMeta';
+import RepoOwner from '../../components/repoOwner';
+import RepoTabs from '../../components/repoTabs';
+import RepoLang from '../../containers/repoLang';
 
 import './repo.less';
 

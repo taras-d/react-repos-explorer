@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { utils } from '../../api';
+import { utils } from '../../../api';
 import './repoDetails.less';
 
 const RepoDetails = ({ details }) => {

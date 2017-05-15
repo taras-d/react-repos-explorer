@@ -1,4 +1,4 @@
-import Repo from './repo';
+import Repo from './containers/repo';
 import { repoReducer } from './repoReducer';
 
 export {
