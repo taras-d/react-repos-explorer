@@ -5,7 +5,7 @@ import * as types from './repoActionTypes';
 const detailsInitialState = {
     owner: null,
     repo: null,
-    details: null,
+    data: null,
     loading: false,
     error: null
 };
@@ -26,9 +26,7 @@ const details = (state = detailsInitialState, action) => {
 }
 
 const languagesInitialState = {
-    owner: null,
-    repo: null,
-    languages: null,
+    data: null,
     loading: false,
     error: null
 };

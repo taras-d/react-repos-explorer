@@ -30,7 +30,7 @@ class Repo extends React.Component {
 
     render() {
 
-        let { details, loading, error, match } = this.props;
+        let { owner, repo, data, loading, error, match } = this.props;
 
         if (loading) {
             return <Loader/>;
@@ -38,7 +38,7 @@ class Repo extends React.Component {
             return <ErrorPanel title={error.title} desc={error.desc} />;
         }
 
-        if (!details) {
+        if (!data) {
             return null;
         }
 
@@ -46,14 +46,14 @@ class Repo extends React.Component {
             <div className="repo">
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <RepoMeta details={details}/>
+                        <RepoMeta details={data}/>
                         <RepoTabs/>
                         <Route path={`${match.url}`} exact 
-                            render={() => <RepoDetails details={details}/>}/>
+                            render={() => <RepoDetails details={data}/>}/>
                         <Route path={`${match.url}/owner`} 
-                            render={() => <RepoOwner owner={details.owner}/>}/>
-                        <Route path={`${match.url}/languages`} 
-                            render={() => <RepoLang/> }/>
+                            render={() => <RepoOwner owner={data.owner}/>}/>
+                        <Route path={`${match.url}/languages`}
+                            render={() => <RepoLang owner={owner} repo={repo}/>}/>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import * as types from './repoActionTypes';
 import { reposService } from '../api';
 
-// Get repo actions
+// Repo actions
 
 export const getRepoRequest = (owner, repo) => {
     return {
@@ -9,7 +9,7 @@ export const getRepoRequest = (owner, repo) => {
         payload: {
             owner,
             repo,
-            details: null,
+            data: null,
             loading: true,
             error: null
         }
@@ -20,7 +20,7 @@ export const getRepoSuccess = (res) => {
     return {
         type: types.GET_REPO_SUCCESS,
         payload: {
-            details: res,
+            data: res,
             loading: false,
             error: null
         }
@@ -31,7 +31,7 @@ export const getRepoFailure = (res) => {
     return {
         type: types.GET_REPO_FAILURE,
         payload: {
-            details: null,
+            data: null,
             loading: false,
             error: {
                 title: res.detailedStatus,
@@ -51,14 +51,12 @@ export const getRepo = (owner, repo) => {
     }
 }
 
-// Get repo languages actions
+// Repo languages actions
 
-export const getRepoLangRequest = (owner, repo) => {
+export const getRepoLangRequest = () => {
     return {
         type: types.GET_REPO_LANG_REQUEST,
         payload: {
-            owner: owner,
-            repo: repo,
             loading: true,
             error: null
         }
@@ -69,7 +67,7 @@ export const getRepoLangSuccess = (res) => {
     return {
         type: types.GET_REPO_LANG_SUCCESS,
         payload: {
-            languages: res,
+            data: res,
             loading: false,
             error: null
         }
@@ -91,8 +89,8 @@ export const getRepoLangFailure = (res) => {
 
 export const getRepoLang = (owner, repo) => {
     return dispatch => {
-        dispatch( getRepoLangRequest(owner, repo) );
-        reposService.getRepoLang(owner, repo).do(
+        dispatch( getRepoLangRequest() );
+        return reposService.getRepoLang(owner, repo).do(
             res => dispatch( getRepoLangSuccess(res) ),
             err => dispatch( getRepoLangFailure(err) )
         );
