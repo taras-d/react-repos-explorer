@@ -49,7 +49,9 @@ class Search extends React.Component {
                     {(items.length === 0 && query && !loading) && 
                         <div className="message">Nothing found</div>}
                     {!query && 
-                        <div className="message">Enter search query to search for public repos<br/>(For example: "react")</div>}
+                        <div className="message">
+                            Enter search query to search for public repos<br/>(For example: "react")
+                        </div>}
                     {loading && 
                         <Dimmer loader/>}
                     {(prev || next) &&
@@ -92,13 +94,13 @@ class Search extends React.Component {
         query = query || '';
         page = +page || 1;
 
+        // Dispatch async action
         let { dispatch } = this.props;
-
-        this.searchSub = dispatch( 
-            actions.searchRepos(query, page) ).subscribe();
+        this.searchSub = dispatch( actions.searchRepos(query, page) ).subscribe();
     }
 
     cancelRequest() {
+        // Cancel request in case if it not finished 
         if (this.searchSub) {
             this.searchSub.unsubscribe();
         }
@@ -106,6 +108,8 @@ class Search extends React.Component {
 
 }
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => {
+    return { search: state.search };
+}
 
 export default connect(mapStateToProps)(Search);

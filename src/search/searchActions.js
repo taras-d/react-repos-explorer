@@ -43,7 +43,6 @@ export const searchReposFailure = (res) => {
     };
 }
 
-// Search repos async action 
 export const searchRepos = (query, page) => {
     return dispatch => {
         dispatch( searchReposRequest(query, page) );

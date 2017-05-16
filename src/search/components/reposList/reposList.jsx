@@ -6,7 +6,6 @@ import './reposList.less';
 
 /**
  * Repos list
- * 
  * Displays list of repositories.
  */
  
