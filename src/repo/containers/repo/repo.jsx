@@ -9,13 +9,19 @@ import Loader from '../../../components/loader';
 
 import * as actions from '../../repoActions';
 
-import RepoDetails from '../../components/repoDetails';
 import RepoMeta from '../../components/repoMeta';
 import RepoOwner from '../../components/repoOwner';
 import RepoTabs from '../../components/repoTabs';
 import RepoLang from '../../containers/repoLang';
 
+import RepoDetailsTab from '../../containers/repoDetailsTab';
+
 import './repo.less';
+
+/**
+ * Repo container
+ * Displays repo details and tabs.
+ */
 
 class Repo extends React.Component {
 
@@ -48,8 +54,7 @@ class Repo extends React.Component {
                     <div className="panel-body">
                         <RepoMeta details={data}/>
                         <RepoTabs/>
-                        <Route path={`${match.url}`} exact 
-                            render={() => <RepoDetails details={data}/>}/>
+                        <Route path={`${match.url}`} exact component={RepoDetailsTab}/>
                         <Route path={`${match.url}/owner`} 
                             render={() => <RepoOwner owner={data.owner}/>}/>
                         <Route path={`${match.url}/languages`}
