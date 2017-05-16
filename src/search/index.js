@@ -1,7 +1,7 @@
-import Search from './containers/search';
+import SearchPage from './containers/searchPage';
 import { searchReducer } from './searchReducer';
 
 export {
-    Search,
+    SearchPage,
     searchReducer
 };

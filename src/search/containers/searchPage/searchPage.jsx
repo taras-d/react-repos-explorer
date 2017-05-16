@@ -12,14 +12,14 @@ import ReposList from '../../components/reposList';
 
 import * as actions from '../../searchActions';
 
-import './search.less';
+import './searchPage.less';
 
 /**
- * Search container
+ * Search page container
  * Displays search panel and search results.
  */
 
-class Search extends React.Component {
+class SearchPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -61,7 +61,7 @@ class Search extends React.Component {
         }
 
         return (
-            <div className="search">
+            <div className="search-page">
                 <SearchPanel query={query} onSearch={q => 
                     history.push(`/?${utils.stringifyQuery({ query: q })}`) }/>
                 {result}
@@ -112,4 +112,4 @@ const mapStateToProps = (state) => {
     return { search: state.search };
 }
 
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps)(SearchPage);
