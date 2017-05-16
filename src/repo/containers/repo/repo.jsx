@@ -11,9 +11,9 @@ import * as actions from '../../repoActions';
 
 import RepoMeta from '../../components/repoMeta';
 import RepoTabs from '../../components/repoTabs';
-import RepoLang from '../../containers/repoLang';
 
 import RepoDetailsTab from '../../containers/repoDetailsTab';
+import RepoLangTab from '../../containers/repoLangTab';
 import RepoOwnerTab from '../../containers/repoOwnerTab';
 
 import './repo.less';
@@ -56,8 +56,7 @@ class Repo extends React.Component {
                         <RepoTabs/>
                         <Route path={`${match.url}`} exact component={RepoDetailsTab}/>
                         <Route path={`${match.url}/owner`} component={RepoOwnerTab}/>
-                        <Route path={`${match.url}/languages`}
-                            render={() => <RepoLang owner={owner} repo={repo}/>}/>
+                        <Route path={`${match.url}/languages`} component={RepoLangTab}/>
                     </div>
                 </div>
             </div>

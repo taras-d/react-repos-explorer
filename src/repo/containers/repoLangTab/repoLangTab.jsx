@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import Loader from '../../../components/loader';
 import ErrorPanel from '../../../components/errorPanel';
 
+import RepoLang from '../../components/repoLang';
+
 import * as actions from '../../repoActions';
 
-import './repoLang.less';
+import './repoLangTab.less';
 
-class RepoLang extends React.Component {
+class RepoLangTab extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,31 +20,29 @@ class RepoLang extends React.Component {
 
     render() {
     
-        let { data, loading, error } = this.props.languages;
+        let { data, loading, error } = this.props.languages,
+            result;
 
         if (loading) {
-            return <Loader/>;
+            result = <Loader/>;
         } else if (error) {
-            return <ErrorPanel title={error.title} desc={error.desc}/>;
-        }
-
-        let langs = [];
-        for (let p in data) {
-            langs.push(
-                <div className="row" key={p}>
-                    <div className="col-xs-3">{p}</div>
-                    <div className="col-xs-9">{data[p]}</div>
-                </div>
-            );
+            result = <ErrorPanel title={error.title} desc={error.desc}/>;
+        } else {
+            result = <RepoLang langs={data}/>;
         }
 
         return (
-            <div className="repo-lang">{langs}</div>
+            <div className="repo-lang-tab">
+                {result}
+            </div>
         );
     }
 
     componentDidMount() {
-        let { dispatch, owner, repo } = this.props;
+
+        let { dispatch } = this.props,
+            { owner, repo } = this.props.details;
+            
         this.langSub = dispatch( actions.getRepoLang(owner, repo) ).subscribe();
     }
 
@@ -56,10 +56,9 @@ class RepoLang extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        owner: ownProps.owner,
-        repo: ownProps.repo,
+        details: state.repo.details,
         languages: state.repo.languages
     };  
 };
 
-export default connect(mapStateToProps)(RepoLang);
+export default connect(mapStateToProps)(RepoLangTab);
