@@ -16,14 +16,14 @@ import RepoDetailsTab from '../../containers/repoDetailsTab';
 import RepoLangTab from '../../containers/repoLangTab';
 import RepoOwnerTab from '../../containers/repoOwnerTab';
 
-import './repo.less';
+import './repoPage.less';
 
 /**
- * Repo container
+ * Repo page container
  * Displays repo details and tabs.
  */
 
-class Repo extends React.Component {
+class RepoPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -49,7 +49,7 @@ class Repo extends React.Component {
         }
 
         return (
-            <div className="repo">
+            <div className="repo-page">
                 <div className="panel panel-default">
                     <div className="panel-body">
                         <RepoMeta details={data}/>
@@ -102,4 +102,4 @@ class Repo extends React.Component {
 
 const mapStateToProps = state => state.repo.details;
 
-export default connect(mapStateToProps)(Repo);
+export default connect(mapStateToProps)(RepoPage);

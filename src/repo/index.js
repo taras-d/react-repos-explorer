@@ -1,7 +1,7 @@
-import Repo from './containers/repo';
+import RepoPage from './containers/repoPage';
 import { repoReducer } from './repoReducer';
 
 export {
-    Repo,
+    RepoPage,
     repoReducer
 };

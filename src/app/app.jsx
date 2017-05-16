@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 
 import { SearchPage } from '../search';
-import { Repo } from '../repo';
+import { RepoPage } from '../repo';
 
 import './app.less';
 
@@ -15,7 +15,7 @@ const App = () => {
                         <Link to="/">GitHub Repos Explorer</Link>
                     </div>
                     <Route path="/" exact component={SearchPage}/>
-                    <Route path="/repo/:owner/:repo" component={Repo}/>
+                    <Route path="/repo/:owner/:repo" component={RepoPage}/>
                 </div>
             </Router>
         </div>
