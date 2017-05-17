@@ -41,20 +41,24 @@ class RepoPage extends React.Component {
             result = <ErrorPanel title={error.title} desc={error.desc} />;
         } else if (data) {
             result = (
-                <div className="panel panel-default">
-                    <div className="panel-body">
-                        <RepoMeta details={data}/>
-                        <RepoTabs/>
-                        <Route path={`${match.url}`} exact component={RepoDetailsTab}/>
-                        <Route path={`${match.url}/owner`} component={RepoOwnerTab}/>
-                        <Route path={`${match.url}/languages`} component={RepoLangTab}/>
-                    </div>
+                <div>
+                    <RepoMeta details={data}/>
+                    <RepoTabs/>
+                    <Route path={`${match.url}`} exact component={RepoDetailsTab}/>
+                    <Route path={`${match.url}/owner`} component={RepoOwnerTab}/>
+                    <Route path={`${match.url}/languages`} component={RepoLangTab}/>
                 </div>
             );
         }
 
         return (
-            <div className="repo-page">{result}</div>
+            <div className="repo-page">
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        {result}
+                    </div>
+                </div>
+            </div>
         );
     }
 
