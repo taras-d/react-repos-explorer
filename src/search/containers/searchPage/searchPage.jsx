@@ -16,7 +16,6 @@ import './searchPage.less';
 
 /**
  * Search page container
- * Displays search panel and search results.
  */
 
 class SearchPage extends React.Component {
@@ -24,9 +23,7 @@ class SearchPage extends React.Component {
     constructor(props) {
         super(props);
 
-        utils.bindMethod(this, 'historyChange');
-
-        this.unlistenHistory = this.props.history.listen(this.historyChange);
+        this.unlistenHistory = this.props.history.listen(this.historyChange.bind(this));
         this.searchSub = null;
     }
 
@@ -100,7 +97,6 @@ class SearchPage extends React.Component {
     }
 
     cancelRequest() {
-        // Cancel request in case if it not finished 
         if (this.searchSub) {
             this.searchSub.unsubscribe();
         }

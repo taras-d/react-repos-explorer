@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { utils } from '../../../api';
 import './repoDetails.less';
+
+/**
+ * Repo details
+ */
 
 const RepoDetails = ({ details }) => {
 
@@ -30,5 +35,9 @@ const RepoDetails = ({ details }) => {
     );
 
 }
+
+RepoDetails.propTypes = {
+    details: PropTypes.object
+};
 
 export default RepoDetails;

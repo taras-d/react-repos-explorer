@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import { utils } from '../../../api';
-
 import ErrorPanel from '../../../components/errorPanel';
 import Loader from '../../../components/loader';
 
@@ -20,7 +18,6 @@ import './repoPage.less';
 
 /**
  * Repo page container
- * Displays repo details and tabs.
  */
 
 class RepoPage extends React.Component {
@@ -28,28 +25,22 @@ class RepoPage extends React.Component {
     constructor(props) {
         super(props);
 
-        utils.bindMethod(this, 'historyChange');
-
-        this.unlistenHistory = this.props.history.listen(this.historyChange);
+        this.unlistenHistory = this.props.history.listen(this.historyChange.bind(this));
         this.repoSub = null;
     }
 
     render() {
 
-        let { owner, repo, data, loading, error, match } = this.props;
+        let { match } = this.props,
+            { owner, repo, data, loading, error } = this.props.details,
+            result = null;
 
         if (loading) {
-            return <Loader/>;
+            result = <Loader/>;
         } else if (error) {
-            return <ErrorPanel title={error.title} desc={error.desc} />;
-        }
-
-        if (!data) {
-            return null;
-        }
-
-        return (
-            <div className="repo-page">
+            result = <ErrorPanel title={error.title} desc={error.desc} />;
+        } else if (data) {
+            result = (
                 <div className="panel panel-default">
                     <div className="panel-body">
                         <RepoMeta details={data}/>
@@ -59,13 +50,21 @@ class RepoPage extends React.Component {
                         <Route path={`${match.url}/languages`} component={RepoLangTab}/>
                     </div>
                 </div>
-            </div>
+            );
+        }
+
+        return (
+            <div className="repo-page">{result}</div>
         );
     }
 
     historyChange(location) {
+
         // Get repo when url params changed
-        let { owner, repo, match } = this.props;
+
+        let { match } = this.props,
+            { owner, repo } = this.props.details;
+
         if (location.pathname.startsWith('/repo') &&
             (owner !== match.params.owner || repo !== match.params.repo) ) {
             this.getRepo();
@@ -89,6 +88,7 @@ class RepoPage extends React.Component {
     
         this.cancelRequest();
 
+        // Dispatch async action
         this.repoSub = dispatch( actions.getRepo(owner, repo) ).subscribe();
     }
 
@@ -100,6 +100,8 @@ class RepoPage extends React.Component {
 
 }
 
-const mapStateToProps = state => state.repo.details;
+const mapStateToProps = state => {
+    return { details: state.repo.details };
+}
 
 export default connect(mapStateToProps)(RepoPage);

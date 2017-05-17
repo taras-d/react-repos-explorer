@@ -4,8 +4,7 @@ import './loader.less';
 
 /**
  * Loader
- * 
- * Displays infinite loading indicator 
+ * Displays infinite loading indicator.
  */
 
 const Loader = () => {

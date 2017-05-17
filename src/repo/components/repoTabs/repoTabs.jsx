@@ -3,6 +3,10 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import './repoTabs.less'
 
+/**
+ * Repo tabs
+ */
+
 const RepoTabs = ({ match }) => {
     return (
         <div className="repo-tabs">

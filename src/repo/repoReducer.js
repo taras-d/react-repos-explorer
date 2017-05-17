@@ -35,9 +35,9 @@ const languages = (state = languagesInitialState, action) => {
 
     switch (action.type) {
 
-        case types.GET_REPO_LANG_REQUEST:
-        case types.GET_REPO_LANG_SUCCESS:
-        case types.GET_REPO_LANG_FAILURE:
+        case types.GET_LANG_REQUEST:
+        case types.GET_LANG_SUCCESS:
+        case types.GET_LANG_FAILURE:
             return Object.assign({}, state, action.payload);
 
         default:

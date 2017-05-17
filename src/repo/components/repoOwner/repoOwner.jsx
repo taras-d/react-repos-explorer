@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './repoOwner.less';
 
@@ -20,5 +21,9 @@ const RepoOwner = ({ owner }) => {
         </div>
     );
 }
+
+RepoOwner.propTypes = {
+    owner: PropTypes.object
+};
 
 export default RepoOwner;

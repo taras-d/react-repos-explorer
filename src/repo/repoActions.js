@@ -55,7 +55,7 @@ export const getRepo = (owner, repo) => {
 
 export const getRepoLangRequest = () => {
     return {
-        type: types.GET_REPO_LANG_REQUEST,
+        type: types.GET_LANG_REQUEST,
         payload: {
             loading: true,
             error: null
@@ -65,7 +65,7 @@ export const getRepoLangRequest = () => {
 
 export const getRepoLangSuccess = (res) => {
     return {
-        type: types.GET_REPO_LANG_SUCCESS,
+        type: types.GET_LANG_SUCCESS,
         payload: {
             data: res,
             loading: false,
@@ -76,7 +76,7 @@ export const getRepoLangSuccess = (res) => {
 
 export const getRepoLangFailure = (res) => {
     return {
-        type: types.GET_REPO_LANG_FAILURE,
+        type: types.GET_LANG_FAILURE,
         payload: {
             loading: false,
             error: {

@@ -3,7 +3,7 @@ import * as types from './searchActionTypes';
 
 export const searchReposRequest = (query, page) => {
     return {
-        type: types.SEARCH_REPOS_REQUEST,
+        type: types.SEARCH_REQUEST,
         payload: { 
             query, 
             page,
@@ -15,7 +15,7 @@ export const searchReposRequest = (query, page) => {
 
 export const searchReposSuccess = (res) => {
     return {
-        type: types.SEARCH_REPOS_SUCCESS,
+        type: types.SEARCH_SUCCESS,
         payload: {
             items: res.items,
             totalCount: res.total_count,
@@ -29,7 +29,7 @@ export const searchReposSuccess = (res) => {
 
 export const searchReposFailure = (res) => {
     return {
-        type: types.SEARCH_REPOS_FAILURE,
+        type: types.SEARCH_FAILURE,
         payload: {
             items: [],
             totalCount: 0,

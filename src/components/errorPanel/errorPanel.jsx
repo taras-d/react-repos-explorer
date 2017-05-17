@@ -5,7 +5,6 @@ import './errorPanel.less';
 
 /**
  * Error panel
- * 
  * Displays error title and description.
  */
 

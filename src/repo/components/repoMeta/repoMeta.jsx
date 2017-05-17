@@ -1,6 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './repoMeta.less';
+
+/**
+ * Repo meta
+ * Displays repo full name and description.
+ */
 
 const RepoMeta = ({ details }) => {
     return (
@@ -12,5 +18,9 @@ const RepoMeta = ({ details }) => {
         </div>
     );
 }
+
+RepoMeta.propTypes = {
+    details: PropTypes.object
+};
 
 export default RepoMeta;

@@ -10,6 +10,10 @@ import * as actions from '../../repoActions';
 
 import './repoLangTab.less';
 
+/**
+ * Repo languages tab container
+ */
+
 class RepoLangTab extends React.Component {
 
     constructor(props) {
@@ -28,28 +32,32 @@ class RepoLangTab extends React.Component {
         } else if (error) {
             result = <ErrorPanel title={error.title} desc={error.desc}/>;
         } else {
-            result = <RepoLang langs={data}/>;
+            result = <RepoLang lang={data}/>;
         }
 
         return (
-            <div className="repo-lang-tab">
-                {result}
-            </div>
+            <div className="repo-lang-tab">{result}</div>
         );
     }
 
     componentDidMount() {
-
-        let { dispatch } = this.props,
-            { owner, repo } = this.props.details;
-            
-        this.langSub = dispatch( actions.getRepoLang(owner, repo) ).subscribe();
+        this.getLang();
     }
+        
 
     componentWillUnmount() {
         if (this.langSub) {
             this.langSub.unsubscribe();
         }
+    }
+
+    getLang() {
+
+        let { dispatch } = this.props,
+            { owner, repo } = this.props.details;
+            
+        // Dispatch async action
+        this.langSub = dispatch( actions.getRepoLang(owner, repo) ).subscribe();
     }
     
 }
