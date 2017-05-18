@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { utils } from '../../../api';
-import ErrorPanel from '../../../components/errorPanel';
-import Loader from '../../../components/loader';
-import Pager from '../../../components/pager';
-import Dimmer from '../../../components/dimmer';
+import { utils } from 'api';
+import ErrorPanel from 'lib/errorPanel';
+import Loader from 'lib/loader';
+import Pager from 'lib/pager';
+import Dimmer from 'lib/dimmer';
 
 import SearchPanel from '../../components/searchPanel';
 import ReposList from '../../components/reposList';

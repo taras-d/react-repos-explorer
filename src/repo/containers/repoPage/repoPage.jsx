@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import ErrorPanel from '../../../components/errorPanel';
-import Loader from '../../../components/loader';
+import ErrorPanel from 'lib/errorPanel';
+import Loader from 'lib/loader';
 
 import * as actions from '../../repoActions';
 

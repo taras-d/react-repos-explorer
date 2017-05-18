@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Loader from '../../../components/loader';
-import ErrorPanel from '../../../components/errorPanel';
+import Loader from 'lib/loader';
+import ErrorPanel from 'lib/errorPanel';
 
 import RepoLang from '../../components/repoLang';
 

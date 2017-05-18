@@ -1,11 +1,17 @@
+var path = require('path');
+
 module.exports = {
     entry: './src/root.jsx',
     output: {
         filename: 'bundle.js',
-        path: __dirname + '/output'
+        path: path.resolve(__dirname, 'output')
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            'api': path.resolve(__dirname, 'src/api'),
+            'lib': path.resolve(__dirname, 'src/components')
+        }
     },
     devtool: 'source-map',
     module: {
