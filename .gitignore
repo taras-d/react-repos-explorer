@@ -1,5 +1,5 @@
 /node_modules
 npm-debug.log
 
-/output/bundle.js
-/output/bundle.js.map
+/output/*.js
+/output/*.js.map

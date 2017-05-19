@@ -1,9 +1,15 @@
-var path = require('path');
+var path = require('path'),
+    webpack = require('webpack');
+    
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-    entry: './src/root.jsx',
+    entry: { 
+        app: './src/root.jsx',
+        vendors: './src/vendors.js'
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'output')
     },
     resolve: {
@@ -34,5 +40,11 @@ module.exports = {
     },
     devServer: {
         publicPath: '/output'
-    }
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({ 
+            name: 'vendors'
+        }),
+        //new BundleAnalyzerPlugin()
+    ]
 }
