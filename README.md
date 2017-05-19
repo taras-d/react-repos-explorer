@@ -2,9 +2,10 @@
 GitHub repositories explorer
 
 Application shows how to use:
-1. [Redux async actions](http://redux.js.org/docs/advanced/AsyncActions.html) to handle API requests
-2. [React Router](https://reacttraining.com/react-router/web/guides/quick-start) basic usage
-3. Code splitting with Webpack [CommonsChunkPlugin](https://webpack.js.org/guides/code-splitting-libraries/) 
+* [Redux async actions](http://redux.js.org/docs/advanced/AsyncActions.html) to handle API requests
+* [Redux DevTool extension](https://github.com/zalmoxisus/redux-devtools-extension) to track app state
+* [React Router](https://reacttraining.com/react-router/web/guides/quick-start) basic usage
+* Code splitting with Webpack [CommonsChunkPlugin](https://webpack.js.org/guides/code-splitting-libraries/) 
 and [BundleAnalyzerPlugin](https://www.npmjs.com/package/webpack-bundle-analyzer)
 
 ### Installation notes
