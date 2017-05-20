@@ -10,7 +10,7 @@ import Dimmer from 'lib/dimmer';
 import SearchPanel from '../../components/searchPanel';
 import ReposList from '../../components/reposList';
 
-import * as actions from '../../searchActions';
+import * as actions from '../../search';
 
 import './searchPage.less';
 
