@@ -39,7 +39,8 @@ module.exports = {
         ]
     },
     devServer: {
-        publicPath: '/output'
+        publicPath: '/output',
+        overlay: true
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({ 
