@@ -6,7 +6,7 @@ import ErrorPanel from 'lib/errorPanel';
 
 import RepoLang from '../../components/repoLang';
 
-import * as actions from '../../repoActions';
+import * as actions from '../../languages';
 
 import './repoLangTab.less';
 
@@ -53,18 +53,16 @@ class RepoLangTab extends React.Component {
 
     getLang() {
 
-        let { dispatch } = this.props,
-            { owner, repo } = this.props.details;
+        let { dispatch } = this.props;
             
         // Dispatch async action
-        this.langSub = dispatch( actions.getRepoLang(owner, repo) ).subscribe();
+        this.langSub = dispatch( actions.getRepoLang() ).subscribe();
     }
     
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        details: state.repo.details,
         languages: state.repo.languages
     };  
 };

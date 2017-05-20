@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import ErrorPanel from 'lib/errorPanel';
 import Loader from 'lib/loader';
 
-import * as actions from '../../repoActions';
+import * as actions from '../../details';
 
 import RepoMeta from '../../components/repoMeta';
 import RepoTabs from '../../components/repoTabs';

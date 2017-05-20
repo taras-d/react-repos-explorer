@@ -6,7 +6,6 @@ const SEARCH_REQUEST = '@search/SEARCH_REQUEST';
 const SEARCH_SUCCESS = '@search/SEARCH_SUCCESS';
 const SEARCH_FAILURE = '@search/SEARCH_FAILURE';
 
-
 // Reducer
 
 const initialState = {
@@ -47,7 +46,6 @@ export default function reducer(state = initialState, action) {
     }
 
 }
-
 
 // Action creators
 
