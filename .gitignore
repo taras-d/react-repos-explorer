@@ -1,5 +1,4 @@
 /node_modules
 npm-debug.log
 
-/output/*.js
-/output/*.js.map
+/dist
