@@ -2,9 +2,7 @@ var path = require('path'),
     webpack = require('webpack');
     
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
+    HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var srcDir = path.join(__dirname, 'src'),
     distDir = path.join(__dirname, 'dist');
@@ -63,6 +61,11 @@ var config = {
 }
 
 if (process.env.NODE_ENV === 'production') {
+
+    var UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
+        ExtractTextPlugin = require("extract-text-webpack-plugin"),
+        CleanWebpackPlugin = require('clean-webpack-plugin');
+
     config.output = {
         filename: '[name].[hash].min.js',
         path: distDir
@@ -83,6 +86,7 @@ if (process.env.NODE_ENV === 'production') {
         ]
     });
     config.plugins.push(
+        new CleanWebpackPlugin(distDir),
         new webpack.DefinePlugin({
             'process.env': { 'NODE_ENV': '"production"' }
         }),
