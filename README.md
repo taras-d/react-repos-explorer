@@ -1,5 +1,7 @@
 # react-repos-explorer
-GitHub repositories explorer
+Simple SPA that uses [GitHub API](https://developer.github.com/v3/) to explore public repos
+
+[Demo](https://taras-d.github.io/react-repos-explorer)
 
 Application shows how to use:
 * [Redux async actions](http://redux.js.org/docs/advanced/AsyncActions.html) to handle API requests
@@ -8,10 +10,8 @@ Application shows how to use:
 * Code splitting with Webpack [CommonsChunkPlugin](https://webpack.js.org/guides/code-splitting-libraries/) 
 and [BundleAnalyzerPlugin](https://www.npmjs.com/package/webpack-bundle-analyzer)
 
-### Installation notes
+### Installation
 ```
 npm install       # install node modules
 npm run server    # start webpack dev server
 ```
-
-> Note: App uses [GitHub API](https://developer.github.com/v3/) to search for public repositories
