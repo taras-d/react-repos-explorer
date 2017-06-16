@@ -6,7 +6,7 @@ import 'react-redux';
 import 'redux';
 import 'redux-thunk';
 
-import 'moment';
+import 'moment-mini';
 import 'query-string';
 
 import { Observable } from 'rxjs/Observable';

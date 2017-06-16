@@ -11,8 +11,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "moment": "^2.18.1",
+    "moment-mini": "^2.18.1",
     "prop-types": "^15.5.9",
     "query-string": "^4.3.4",
     "react": "^15.5.4",

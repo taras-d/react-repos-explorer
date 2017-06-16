@@ -16,7 +16,8 @@ module.exports = {
         extensions: ['.js', '.jsx'],
         alias: {
             'api': path.resolve(__dirname, 'src/api'),
-            'lib': path.resolve(__dirname, 'src/components')
+            'lib': path.resolve(__dirname, 'src/components'),
+            'moment': 'moment-mini'
         }
     },
     devtool: 'source-map',
@@ -40,6 +41,7 @@ module.exports = {
     },
     devServer: {
         publicPath: '/output',
+        stats: 'minimal',
         overlay: true
     },
     plugins: [
