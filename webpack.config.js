@@ -18,8 +18,8 @@ var config = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            'api': path.resolve(__dirname, 'src/api'),
-            'lib': path.resolve(__dirname, 'src/components'),
+            'api': path.join(srcDir, 'api'),
+            'lib': path.join(srcDir, 'components'),
             'moment': 'moment-mini'
         }
     },
