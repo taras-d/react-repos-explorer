@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 
 import RepoPage from './containers/repoPage';
 
-import detailsReducer from './details';
-import languagesReducer from './languages';
+import detailsReducer from './ducks/details';
+import languagesReducer from './ducks/languages';
 
 const repoReducer = combineReducers({
      details: detailsReducer, 

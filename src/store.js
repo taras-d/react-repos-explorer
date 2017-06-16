@@ -10,14 +10,17 @@ const rootReducer = combineReducers({
     repo: repoReducer
 });
 
-// Create store enhancer (middleware)
-// If DevTool extension available - compose extension with middleware,
-// otherwise use only middleware
-const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__(applyMiddleware(ReduxThunk)):
-    applyMiddleware(ReduxThunk);
+// Create middleware
+let middleware;
+if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+    middleware = __REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+        applyMiddleware(ReduxThunk)
+    );
+} else {
+    middleware = applyMiddleware(ReduxThunk);
+}
 
 // Create store
-const store = createStore(rootReducer, enhancer);
+const store = createStore(rootReducer, middleware);
 
 export default store;

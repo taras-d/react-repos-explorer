@@ -4,8 +4,12 @@ import PropTypes from 'prop-types';
 import './repoLang.less';
 
 /**
- * Repo languages
+ * Repo languages stats
  */
+
+const propTypes = {
+    lang: PropTypes.object
+};
 
 const RepoLang = ({ lang }) => {
     
@@ -24,8 +28,6 @@ const RepoLang = ({ lang }) => {
     );
 }
 
-RepoLang.propTypes = {
-    lang: PropTypes.object
-};
+RepoLang.propTypes = propTypes;
 
 export default RepoLang;

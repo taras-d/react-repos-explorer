@@ -9,6 +9,10 @@ import './repoDetails.less';
  * Repo details
  */
 
+const propTypes = {
+    details: PropTypes.object
+};
+
 const RepoDetails = ({ details }) => {
 
     let stats = [
@@ -36,8 +40,6 @@ const RepoDetails = ({ details }) => {
 
 }
 
-RepoDetails.propTypes = {
-    details: PropTypes.object
-};
+RepoDetails.propTypes = propTypes;
 
 export default RepoDetails;

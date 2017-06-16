@@ -28,40 +28,62 @@ class SearchPage extends React.Component {
     }
 
     render() {
+        let error = this.props.search.error;
+        return (
+            <div className="search-page">
+                {this.renderSearchPanel()}
+                {error?
+                    this.renderError(error):
+                    this.renderResult()
+                }
+            </div>
+        );
+    }
 
-        let { history } = this.props;
-        let { query, page, items, totalCount, prev, next, loading, error } = this.props.search;
+    renderSearchPanel() {
+        let props = this.props,
+            history = props.history,
+            query = props.search.query;
+        return (
+            <SearchPanel 
+                query={query} 
+                onSearch={ q => history.push( `/?${utils.stringifyQuery({ query: q })}` ) }
+            />
+        );
+    }
 
-        let result;
+    renderError(error) {
+        return <ErrorPanel title={error.title} desc={error.desc}/>
+    }
 
-        if (error) {
-            result = <ErrorPanel title={error.title} desc={error.desc}/>
-        } else {
-            result = (
-                <div style={{position:'relative'}}>
-                    {totalCount > 0 && 
-                        <div className="total-count">{totalCount} repo(s)</div>}
-                    {items.length > 0 && 
-                        <ReposList repos={items}/>}
-                    {(items.length === 0 && query && !loading) && 
-                        <div className="message">Nothing found</div>}
-                    {!query && 
-                        <div className="message">
-                            Enter search query to search for public repos<br/>(For example: "react")
-                        </div>}
-                    {loading && 
-                        <Dimmer loader/>}
-                    {(prev || next) &&
-                        <Pager prev={prev?`/?${prev}`: ''} next={next? `/?${next}`: ''}/>}
+    renderResult() {
+
+        let { query, items, totalCount, prev, next, loading } = this.props.search;
+
+        if (!query) {
+            return (
+                <div className="message">
+                    Enter search query to search for public repos<br/>(For example: "react")
                 </div>
             );
         }
 
+        if (items.length === 0 && query && !loading) {
+            return <div className="message">Nothing found</div>;
+        }
+
+
         return (
-            <div className="search-page">
-                <SearchPanel query={query} onSearch={q => 
-                    history.push(`/?${utils.stringifyQuery({ query: q })}`) }/>
-                {result}
+            <div style={{position:'relative'}}>                
+                {items.length > 0 &&
+                    <div>
+                        <div className="total-count">{totalCount} repo(s)</div>
+                        <ReposList repos={items}/>
+                        {(prev || next) && 
+                            <Pager prev={prev?`/?${prev}`: ''} next={next? `/?${next}`: ''}/>}
+                    </div>
+                }
+                {loading && <Dimmer loader/>}
             </div>
         );
     }
@@ -97,9 +119,7 @@ class SearchPage extends React.Component {
     }
 
     cancelRequest() {
-        if (this.searchSub) {
-            this.searchSub.unsubscribe();
-        }
+        utils.unsub(this.searchSub);
     }
 
 }

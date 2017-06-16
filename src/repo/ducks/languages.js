@@ -2,9 +2,9 @@ import { reposService } from 'api';
 
 // Actions
 
-const GET_LANG_REQUEST = '@repo/GET_LANG_REQUEST';
-const GET_LANG_SUCCESS = '@repo/GET_LANG_SUCCESS';
-const GET_LANG_FAILURE = '@repo/GET_LANG_FAILURE';
+const REQUEST = '@repo/LANG_REQUEST';
+const REQUEST_OK = '@repo/LANG_REQUEST_OK';
+const REQUEST_FAIL = '@repo/LANG_REQUEST_FAIL';
 
 // Reducer
 
@@ -18,20 +18,20 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case GET_LANG_REQUEST:
+        case REQUEST:
             return Object.assign({}, state, {
                 data: null,
                 loading: true,
                 error: null
             });
 
-        case GET_LANG_SUCCESS:
+        case REQUEST_OK:
             return Object.assign({}, state, action.payload, {
                 loading: false,
                 error: null
             });
 
-        case GET_LANG_FAILURE:
+        case REQUEST_FAIL:
             return Object.assign({}, state, action.payload, {
                 loading: false
             });
@@ -44,30 +44,22 @@ export default function reducer(state = initialState, action) {
 
 // Action creators
 
-export const getRepoLangRequest = () => {
-    return {
-        type: GET_LANG_REQUEST
-    };
-}
+export const request = () => ({ type: REQUEST });
 
-export const getRepoLangSuccess = (res) => {
-    return {
-        type: GET_LANG_SUCCESS,
-        payload: { data: res }
-    };
-}
+export const requestOk = (res) => ({
+    type: REQUEST_OK,
+    payload: { data: res }
+});
 
-export const getRepoLangFailure = (res) => {
-    return {
-        type: GET_LANG_FAILURE,
-        payload: {
-            error: {
-                title: res.detailedStatus,
-                desc: res.response.message
-            }
+export const requestFail = (res) => ({
+    type: REQUEST_FAIL,
+    payload: {
+        error: {
+            title: res.detailedStatus,
+            desc: res.response.message
         }
-    };
-}
+    }
+});
 
 export const getRepoLang = (owner, repo) => {
     return (dispatch, getState) => {
@@ -75,10 +67,10 @@ export const getRepoLang = (owner, repo) => {
         // Get owner name and repo name from state
         let { owner, repo } = getState().repo.details;
         
-        dispatch( getRepoLangRequest() );
+        dispatch( request() );
         return reposService.getRepoLang(owner, repo).do(
-            res => dispatch( getRepoLangSuccess(res) ),
-            err => dispatch( getRepoLangFailure(err) )
+            res => dispatch( requestOk(res) ),
+            err => dispatch( requestFail(err) )
         );
     }
 }

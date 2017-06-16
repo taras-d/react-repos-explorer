@@ -9,6 +9,10 @@ import './reposList.less';
  * Displays list of repositories.
  */
  
+const propTypes = {
+    repos: PropTypes.array
+};
+
 const ReposList = ({ repos }) => {
 
     let result = repos.map(repo => 
@@ -32,8 +36,6 @@ const ReposList = ({ repos }) => {
 
 }
 
-ReposList.propTypes = {
-    repos: PropTypes.array
-};
+ReposList.propTypes = propTypes;
 
 export default ReposList;

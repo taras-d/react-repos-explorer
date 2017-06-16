@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { unsub } from 'api/utils';
+
 import Loader from 'lib/loader';
 import ErrorPanel from 'lib/errorPanel';
 
 import RepoLang from '../../components/repoLang';
 
-import * as actions from '../../languages';
+import * as actions from '../../ducks/languages';
 
 import './repoLangTab.less';
 
@@ -18,8 +20,7 @@ class RepoLangTab extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.langSub = null;
+        this.getSub = null;
     }
 
     render() {
@@ -31,7 +32,7 @@ class RepoLangTab extends React.Component {
             result = <Loader/>;
         } else if (error) {
             result = <ErrorPanel title={error.title} desc={error.desc}/>;
-        } else {
+        } else if (data) {
             result = <RepoLang lang={data}/>;
         }
 
@@ -46,17 +47,13 @@ class RepoLangTab extends React.Component {
         
 
     componentWillUnmount() {
-        if (this.langSub) {
-            this.langSub.unsubscribe();
-        }
+        unsub(this.getSub);
     }
 
     getLang() {
-
-        let { dispatch } = this.props;
-            
         // Dispatch async action
-        this.langSub = dispatch( actions.getRepoLang() ).subscribe();
+        let { dispatch } = this.props;
+        this.getSub = dispatch( actions.getRepoLang() ).subscribe();
     }
     
 }

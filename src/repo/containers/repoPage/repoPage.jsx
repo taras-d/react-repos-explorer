@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
+import { unsub } from 'api/utils';
+
 import ErrorPanel from 'lib/errorPanel';
 import Loader from 'lib/loader';
 
-import * as actions from '../../details';
+import * as actions from '../../ducks/details';
 
 import RepoMeta from '../../components/repoMeta';
 import RepoTabs from '../../components/repoTabs';
@@ -26,21 +28,33 @@ class RepoPage extends React.Component {
         super(props);
 
         this.unlistenHistory = this.props.history.listen(this.historyChange.bind(this));
-        this.repoSub = null;
+        this.getSub = null;
     }
 
     render() {
+        return (
+            <div className="repo-page">
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        {this.renderContent()}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    renderContent() {
 
         let { match } = this.props,
             { owner, repo, data, loading, error } = this.props.details,
             result = null;
 
         if (loading) {
-            result = <Loader/>;
+            return <Loader/>;
         } else if (error) {
-            result = <ErrorPanel title={error.title} desc={error.desc} />;
+            return <ErrorPanel title={error.title} desc={error.desc} />;
         } else if (data) {
-            result = (
+            return (
                 <div>
                     <RepoMeta details={data}/>
                     <RepoTabs/>
@@ -51,15 +65,7 @@ class RepoPage extends React.Component {
             );
         }
 
-        return (
-            <div className="repo-page">
-                <div className="panel panel-default">
-                    <div className="panel-body">
-                        {result}
-                    </div>
-                </div>
-            </div>
-        );
+        return null;
     }
 
     historyChange(location) {
@@ -93,13 +99,11 @@ class RepoPage extends React.Component {
         this.cancelRequest();
 
         // Dispatch async action
-        this.repoSub = dispatch( actions.getRepo(owner, repo) ).subscribe();
+        this.getSub = dispatch( actions.getRepo(owner, repo) ).subscribe();
     }
 
     cancelRequest() {
-        if (this.repoSub) {
-            this.repoSub.unsubscribe();
-        }
+        unsub(this.getSub);
     }
 
 }

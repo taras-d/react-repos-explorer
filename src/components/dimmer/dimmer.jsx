@@ -9,8 +9,12 @@ import './dimmer.less';
  * Dimmer
  * 
  * Displays white transparent overlay.
- * Note that dimmer size depends on size of nearest positioned parent.
+ * Dimmer size depends on nearest positioned parent.
  */
+
+const propTypes = {
+    loader: PropTypes.bool
+};
 
 const Dimmer = ({ loader }) => {
     return (
@@ -21,8 +25,6 @@ const Dimmer = ({ loader }) => {
     );
 }
 
-Dimmer.propTypes = {
-    loader: PropTypes.bool
-};
+Dimmer.propTypes = propTypes;
 
 export default Dimmer;

@@ -8,6 +8,11 @@ import './errorPanel.less';
  * Displays error title and description.
  */
 
+const propTypes = {
+    title: PropTypes.string,
+    desc: PropTypes.string
+};
+
 const ErrorPanel = ({ title, desc }) => {
     return (
         <div className="error-panel">
@@ -21,9 +26,6 @@ const ErrorPanel = ({ title, desc }) => {
     );
 }
 
-ErrorPanel.propTypes = {
-    title: PropTypes.string,
-    desc: PropTypes.string
-};
+ErrorPanel.propTypes = propTypes;
 
 export default ErrorPanel;

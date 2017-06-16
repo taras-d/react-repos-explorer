@@ -7,11 +7,16 @@ import './searchPanel.less';
  * Seach panel
  * 
  * Display query input and search button.
- * Note that component has internal state to control only query input.
+ * Note that component has internal state to control query input.
  * 
  * Component provides 'query' and 'onSearch' properties to allow parent component
  * set query value and react on search submit.
  */
+
+const propTypes = {
+    query: PropTypes.string,
+    onSearch: PropTypes.func
+};
 
 class SearchPanel extends React.Component {
 
@@ -58,9 +63,6 @@ class SearchPanel extends React.Component {
 
 }
 
-SearchPanel.propTypes = {
-    query: PropTypes.string,
-    onSearch: PropTypes.func
-};
+SearchPanel.propTypes = propTypes;
 
 export default SearchPanel;

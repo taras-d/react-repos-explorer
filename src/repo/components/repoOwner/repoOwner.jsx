@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import './repoOwner.less';
 
+const propTypes = {
+    owner: PropTypes.object
+};
+
 const RepoOwner = ({ owner }) => {
     return (
         <div className="repo-owner">
@@ -22,8 +26,6 @@ const RepoOwner = ({ owner }) => {
     );
 }
 
-RepoOwner.propTypes = {
-    owner: PropTypes.object
-};
+RepoOwner.propTypes = propTypes;
 
 export default RepoOwner;

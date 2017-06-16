@@ -8,6 +8,10 @@ import './repoMeta.less';
  * Displays repo full name and description.
  */
 
+const propTypes = {
+    details: PropTypes.object
+};
+
 const RepoMeta = ({ details }) => {
     return (
         <div className="repo-meta">
@@ -19,8 +23,6 @@ const RepoMeta = ({ details }) => {
     );
 }
 
-RepoMeta.propTypes = {
-    details: PropTypes.object
-};
+RepoMeta.propTypes = propTypes;
 
 export default RepoMeta;
