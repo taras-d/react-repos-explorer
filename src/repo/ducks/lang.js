@@ -2,9 +2,9 @@ import { reposService } from 'api';
 
 // Actions
 
-const REQUEST = '@repo/LANG_REQUEST';
-const REQUEST_OK = '@repo/LANG_REQUEST_OK';
-const REQUEST_FAIL = '@repo/LANG_REQUEST_FAIL';
+const GET_LANG      = 'repo/GET_LANG';
+const GET_LANG_OK   = 'repo/GET_LANG_OK';
+const GET_LANG_FAIL = 'repo/GET_LANG_FAIL';
 
 // Reducer
 
@@ -18,20 +18,20 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case REQUEST:
+        case GET_LANG:
             return Object.assign({}, state, {
                 data: null,
                 loading: true,
                 error: null
             });
 
-        case REQUEST_OK:
+        case GET_LANG_OK:
             return Object.assign({}, state, action.payload, {
                 loading: false,
                 error: null
             });
 
-        case REQUEST_FAIL:
+        case GET_LANG_FAIL:
             return Object.assign({}, state, action.payload, {
                 loading: false
             });
@@ -44,15 +44,15 @@ export default function reducer(state = initialState, action) {
 
 // Action creators
 
-export const request = () => ({ type: REQUEST });
+export const getLang = () => ({ type: GET_LANG });
 
-export const requestOk = (res) => ({
-    type: REQUEST_OK,
+export const getLangOk = (res) => ({
+    type: GET_LANG_OK,
     payload: { data: res }
 });
 
-export const requestFail = (res) => ({
-    type: REQUEST_FAIL,
+export const getLangFail = (res) => ({
+    type: GET_LANG_FAIL,
     payload: {
         error: {
             title: res.detailedStatus,
@@ -61,16 +61,16 @@ export const requestFail = (res) => ({
     }
 });
 
-export const getRepoLang = (owner, repo) => {
+export const getLangAsync = (owner, repo) => {
     return (dispatch, getState) => {
 
-        // Get owner name and repo name from state
-        let { owner, repo } = getState().repo.details;
+        // Get owner and repo names from state
+        let { ownerName, repoName } = getState().repo.repo;
         
-        dispatch( request() );
-        return reposService.getRepoLang(owner, repo).do(
-            res => dispatch( requestOk(res) ),
-            err => dispatch( requestFail(err) )
+        dispatch( getLang() );
+        return reposService.getRepoLang(ownerName, repoName).do(
+            res => dispatch( getLangOk(res) ),
+            err => dispatch( getLangFail(err) )
         );
     }
 }

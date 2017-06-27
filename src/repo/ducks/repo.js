@@ -2,15 +2,15 @@ import { reposService } from 'api';
 
 // Actions
 
-const REQUEST = '@repo/DETAILS_REQUEST';
-const REQUEST_OK = '@repo/DETAILS_REQUEST_OK';
-const REQUEST_FAIL = '@repo/DETAILS_REQUEST_FAIL';
+const GET_REPO      = 'repo/GET_REPO';
+const GET_REPO_OK   = 'repo/GET_REPO_OK';
+const GET_REPO_FAIL = 'repo/GET_REPO_FAIL';
 
 // Reducer
 
 const initialState = {
-    owner: null,
-    repo: null,
+    ownerName: null,
+    repoName: null,
     data: null,
     loading: false,
     error: null
@@ -20,20 +20,20 @@ export default function (state = initialState, action) {
 
     switch (action.type) {
 
-        case REQUEST:
+        case GET_REPO:
             return Object.assign({}, state, action.payload, {
                 data: null,
                 loading: true,
                 error: null
             });
 
-        case REQUEST_OK:
+        case GET_REPO_OK:
             return Object.assign({}, state, action.payload, {
                 loading: false,
                 error: null
             });
 
-        case REQUEST_FAIL:
+        case GET_REPO_FAIL:
             return Object.assign({}, state, action.payload, {
                 data: null,
                 loading: false
@@ -47,18 +47,18 @@ export default function (state = initialState, action) {
 
 // Action creators
 
-export const request = (owner, repo) => ({
-    type: REQUEST,
-    payload: { owner, repo }
+export const getRepo = (ownerName, repoName) => ({
+    type: GET_REPO,
+    payload: { ownerName, repoName }
 });
 
-export const requestOk = (res) => ({
-    type: REQUEST_OK,
+export const getRepoOk = (res) => ({
+    type: GET_REPO_OK,
     payload: { data: res }
 });
 
-export const requestFail = (res) => ({
-    type: REQUEST_FAIL,
+export const getRepoFail = (res) => ({
+    type: GET_REPO_FAIL,
     payload: {
         error: {
             title: res.detailedStatus,
@@ -67,12 +67,12 @@ export const requestFail = (res) => ({
     }
 });
 
-export const getRepo = (owner, repo) => {
+export const getRepoAsync = (owner, repo) => {
     return dispatch => {
-        dispatch( request(owner, repo) );
+        dispatch( getRepo(owner, repo) );
         return reposService.getRepo(owner, repo).do(
-            res => dispatch( requestOk(res) ),
-            err => dispatch( requestFail(err) )
+            res => dispatch( getRepoOk(res) ),
+            err => dispatch( getRepoFail(err) )
         );
     }
 }

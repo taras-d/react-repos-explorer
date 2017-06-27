@@ -8,7 +8,7 @@ import ErrorPanel from 'lib/errorPanel';
 
 import RepoLang from '../../components/repoLang';
 
-import * as actions from '../../ducks/languages';
+import * as actions from '../../ducks/lang';
 
 import './repoLangTab.less';
 
@@ -25,7 +25,7 @@ class RepoLangTab extends React.Component {
 
     render() {
     
-        let { data, loading, error } = this.props.languages,
+        let { data, loading, error } = this.props.lang,
             result;
 
         if (loading) {
@@ -52,16 +52,12 @@ class RepoLangTab extends React.Component {
 
     getLang() {
         // Dispatch async action
-        let { dispatch } = this.props;
-        this.getSub = dispatch( actions.getRepoLang() ).subscribe();
+        unsub(this.getSub);
+        this.getSub = this.props.dispatch( actions.getLangAsync() ).subscribe();
     }
     
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        languages: state.repo.languages
-    };  
-};
+const mapStateToProps = (state, ownProps) => ({ lang: state.repo.lang });  
 
 export default connect(mapStateToProps)(RepoLangTab);

@@ -26,11 +26,11 @@ class ReposService {
 
             let data = res.response;
 
-            // Prepare prev page parameters
+            // Prev page parameters
             data.prev = page > 1? 
                 utils.stringifyQuery({ page: page - 1, query }): null;
 
-            // Prepate next page parameters
+            // Next page parameters
             data.next = page < data.total_count / perPage?
                 utils.stringifyQuery({ page: page + 1, query }): null;
 

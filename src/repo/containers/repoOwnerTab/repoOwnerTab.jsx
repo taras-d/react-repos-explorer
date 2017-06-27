@@ -12,20 +12,15 @@ import './repoOwnerTab.less';
 class RepoOwnerTab extends React.Component {
 
     render() {
-
-        let { details } = this.props;
-
         return (
             <div className="repo-owner-tab">
-                <RepoOwner owner={details.data.owner}/>
+                <RepoOwner owner={this.props.repo.data.owner}/>
             </div>
         );
     }
 
 }
 
-const mapStateToProps = (state) => {
-    return { details: state.repo.details };
-}
+const mapStateToProps = (state) => ({ repo: state.repo.repo });
 
 export default connect(mapStateToProps)(RepoOwnerTab);

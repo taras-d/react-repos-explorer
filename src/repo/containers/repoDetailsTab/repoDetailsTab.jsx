@@ -12,20 +12,15 @@ import './repoDetailsTab.less';
 class RepoDetailsTab extends React.Component {
 
     render() {
-
-        let { details } = this.props;
-
         return (
             <div className="repo-details-tab">
-                <RepoDetails details={details.data}/>
+                <RepoDetails details={this.props.repo.data}/>
             </div>
         );
     }
 
 }
 
-const mapStateToProps = (state) => {
-    return { details: state.repo.details };
-}
+const mapStateToProps = (state) => ({ repo: state.repo.repo });
 
 export default connect(mapStateToProps)(RepoDetailsTab);

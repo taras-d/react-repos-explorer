@@ -7,7 +7,7 @@ import { unsub } from 'api/utils';
 import ErrorPanel from 'lib/errorPanel';
 import Loader from 'lib/loader';
 
-import * as actions from '../../ducks/details';
+import * as actions from '../../ducks/repo';
 
 import RepoMeta from '../../components/repoMeta';
 import RepoTabs from '../../components/repoTabs';
@@ -46,7 +46,7 @@ class RepoPage extends React.Component {
     renderContent() {
 
         let { match } = this.props,
-            { owner, repo, data, loading, error } = this.props.details,
+            { data, loading, error } = this.props.repo,
             result = null;
 
         if (loading) {
@@ -69,14 +69,12 @@ class RepoPage extends React.Component {
     }
 
     historyChange(location) {
-
         // Get repo when url params changed
-
-        let { match } = this.props,
-            { owner, repo } = this.props.details;
-
-        if (location.pathname.startsWith('/repo') &&
-            (owner !== match.params.owner || repo !== match.params.repo) ) {
+        let { match, repo } = this.props;
+        if (
+            location.pathname.startsWith('/repo') &&
+            (repo.ownerName !== match.params.owner || repo.repoName !== match.params.repo) 
+        ) {
             this.getRepo();
         }
     }
@@ -88,28 +86,22 @@ class RepoPage extends React.Component {
 
     componentWillUnmount() {
         this.unlistenHistory();
-        this.cancelRequest();
+        unsub(this.getSub);
     }
 
     getRepo() {
 
-        let { dispatch } = this.props;
-        let { owner, repo } = this.props.match.params;
-    
-        this.cancelRequest();
+        unsub(this.getSub);
 
         // Dispatch async action
-        this.getSub = dispatch( actions.getRepo(owner, repo) ).subscribe();
-    }
-
-    cancelRequest() {
-        unsub(this.getSub);
+        let { dispatch, match } = this.props;
+        this.getSub = dispatch( 
+            actions.getRepoAsync(match.params.owner, match.params.repo) 
+        ).subscribe();
     }
 
 }
 
-const mapStateToProps = state => {
-    return { details: state.repo.details };
-}
+const mapStateToProps = state => ({ repo: state.repo.repo });
 
 export default connect(mapStateToProps)(RepoPage);
