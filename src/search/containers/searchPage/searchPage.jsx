@@ -10,7 +10,7 @@ import Dimmer from 'lib/dimmer';
 import SearchPanel from '../../components/searchPanel';
 import ReposList from '../../components/reposList';
 
-import * as actions from '../../search';
+import * as actions from '../../ducks/search';
 
 import './searchPage.less';
 
@@ -102,12 +102,12 @@ class SearchPage extends React.Component {
 
     componentWillUnmount() {
         this.unlistenHistory();
-        this.cancelRequest();
+        utils.unsub(this.searchSub);
     }
 
     searchRepos() {
 
-        this.cancelRequest();
+        utils.unsub(this.searchSub);
 
         let { query, page } = utils.parseQuery(this.props.history.location.search);
         query = query || '';
@@ -115,17 +115,11 @@ class SearchPage extends React.Component {
 
         // Dispatch async action
         let { dispatch } = this.props;
-        this.searchSub = dispatch( actions.searchRepos(query, page) ).subscribe();
-    }
-
-    cancelRequest() {
-        utils.unsub(this.searchSub);
+        this.searchSub = dispatch( actions.searchAsync(query, page) ).subscribe();
     }
 
 }
 
-const mapStateToProps = (state) => {
-    return { search: state.search };
-}
+const mapStateToProps = (state) => ({ search: state.search });
 
 export default connect(mapStateToProps)(SearchPage);

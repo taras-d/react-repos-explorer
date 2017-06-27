@@ -2,9 +2,9 @@ import { reposService } from 'api';
 
 // Actions
 
-const REQUEST = '@search/REQUEST';
-const REQUEST_OK = '@search/REQUEST_OK';
-const REQUEST_FAIL = '@search/REQUEST_FAIL';
+const SEARCH      = 'search/SEARCH';
+const SEARCH_OK   = 'search/SEARCH_OK';
+const SEARCH_FAIL = 'search/SEARCH_FAIL';
 
 // Reducer
 
@@ -23,19 +23,19 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case REQUEST:
+        case SEARCH:
             return Object.assign({}, state, action.payload, {
                 loading: true,
                 error: null
             });
 
-        case REQUEST_OK:
+        case SEARCH_OK:
             return Object.assign({}, state, action.payload, {
                 loading: false,
                 error: null
             });
 
-        case REQUEST_FAIL:
+        case SEARCH_FAIL:
             return Object.assign({}, state, action.payload, {
                 loading: false
             });
@@ -49,13 +49,13 @@ export default function reducer(state = initialState, action) {
 
 // Action creators
 
-export const request = (query, page) => ({
-    type: REQUEST,
+export const search = (query, page) => ({
+    type: SEARCH,
     payload: { query, page }
 })
 
-export const requestOk = (res) => ({
-    type: REQUEST_OK,
+export const searchOk = (res) => ({
+    type: SEARCH_OK,
     payload: {
         items: res.items,
         totalCount: res.total_count,
@@ -64,8 +64,8 @@ export const requestOk = (res) => ({
     }
 })
 
-export const requestFail = (res) => ({
-    type: REQUEST_FAIL,
+export const searchFail = (res) => ({
+    type: SEARCH_FAIL,
     payload: {
         error: {
             title: res.detailedStatus,
@@ -74,12 +74,12 @@ export const requestFail = (res) => ({
     }
 })
 
-export const searchRepos = (query, page) => {
+export const searchAsync = (query, page) => {
     return dispatch => {
-        dispatch( request(query, page) );
+        dispatch( search(query, page) );
         return reposService.searchRepos(query, page).do(
-            res => dispatch( requestOk(res) ),
-            res => dispatch( requestFail(res) )
+            res => dispatch( searchOk(res) ),
+            res => dispatch( searchFail(res) )
         );
     }
 }

@@ -1,5 +1,5 @@
 import SearchPage from './containers/searchPage';
-import searchReducer from './search';
+import searchReducer from './ducks';
 
 export {
     SearchPage,
